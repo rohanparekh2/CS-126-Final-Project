@@ -16,7 +16,11 @@ public:
 
 private:
   double make_percentage_;
-  double shot_power_;
+  size_t kMinPower = 10;
+  size_t kMaxPower = 90;
+  size_t kPowerBonus = 10;
+  size_t kOptimalPercentage = 100;
+
 
 };
 

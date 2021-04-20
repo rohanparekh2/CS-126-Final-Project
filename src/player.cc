@@ -3,6 +3,12 @@
 
 namespace basketball {
 
-void Player::AdjustScore(std::string &shot_type) {}
-Player::Player() {}
+Player::Player() {
+  score_ = 0;
+}
+
+void Player::AdjustScore(std::string &shot_type) {
+
+}
+
 }// namespace basketball
