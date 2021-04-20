@@ -7,6 +7,8 @@ class Player {
 public:
   Player();
 
+  Player(std::string& name);
+
   void AdjustScore(std::string& shot_type);
 
 private:

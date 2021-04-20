@@ -50,7 +50,8 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND SOURCE_FILES src/offense.cc
-                          src/player.cc)
+                         src/player.cc
+                         src/basketball_app.cc)
 
 add_executable(main apps/main.cc ${SOURCE_FILES})
 target_include_directories(main PRIVATE include)

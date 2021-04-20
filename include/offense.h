@@ -20,6 +20,7 @@ private:
   size_t kMaxPower = 90;
   size_t kPowerBonus = 10;
   size_t kOptimalPercentage = 100;
+  size_t kMinimumPercentage = 0;
 
 
 };
