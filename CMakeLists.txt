@@ -54,8 +54,6 @@ list(APPEND SOURCE_FILES src/offense.cc
                          src/basketball_app.cc
                          src/game_display.cc)
 
-add_executable(main apps/main.cc ${SOURCE_FILES})
-target_include_directories(main PRIVATE include)
 
 ci_make_app(
         APP_NAME        basketball-game
