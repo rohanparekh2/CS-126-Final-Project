@@ -1,7 +1,6 @@
 #include <catch2/catch.hpp>
 #include <offense.h>
 
-
 TEST_CASE("Test Select Shot") {
   SECTION("Layup") {
     basketball::Offense offense = basketball::Offense();
