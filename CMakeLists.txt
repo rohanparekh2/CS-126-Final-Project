@@ -61,3 +61,17 @@ ci_make_app(
         SOURCES         apps/main.cc ${SOURCE_FILES}
         INCLUDES        include
 )
+
+list(APPEND TEST_FILES tests/test_offense.cc)
+
+ci_make_app(
+        APP_NAME        basketball-test
+        CINDER_PATH     ${CINDER_PATH}
+        SOURCES         tests/test_main.cc ${SOURCE_FILES} ${TEST_FILES}
+        INCLUDES        include
+        LIBRARIES       catch2
+)
+
+if(MSVC)
+    set_property(TARGET basketball-test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
+endif()

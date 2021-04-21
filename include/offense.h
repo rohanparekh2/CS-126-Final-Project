@@ -16,6 +16,8 @@ public:
 
   bool DetermineShotResult(Player& current_player, std::string& user_input) const;
 
+  double GetMakePercentage() const;
+
 private:
   double make_percentage_;
   size_t kMinPower = 10;

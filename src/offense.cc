@@ -36,5 +36,6 @@ bool Offense::DetermineShotResult(Player &current_player,
     return true;
   }
 }
+double Offense::GetMakePercentage() const { return make_percentage_; }
 
 } // namespace basketball
