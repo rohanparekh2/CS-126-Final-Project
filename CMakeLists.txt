@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 11)
-project(basketball-game)
+project(final-project)
 
 # This tells the compiler to not aggressively optimize and
 # to include debugging information so that the debugger
@@ -55,3 +55,10 @@ list(APPEND SOURCE_FILES src/offense.cc
 
 add_executable(main apps/main.cc ${SOURCE_FILES})
 target_include_directories(main PRIVATE include)
+
+ci_make_app(
+        APP_NAME        basketball-game
+        CINDER_PATH     ${CINDER_PATH}
+        SOURCES         apps/main.cc ${SOURCE_FILES}
+        INCLUDES        include
+)

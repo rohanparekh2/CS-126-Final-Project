@@ -1,10 +1,15 @@
-//
-// Created by Rohan Parekh on 4/20/21.
-//
+#pragma once
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
+#include "offense.h"
 
-#ifndef BASKETBALL_GAME_BASKETBALL_APP_H
-#define BASKETBALL_GAME_BASKETBALL_APP_H
+namespace basketball {
 
-class basketball_app {};
+class BasketballApp : public ci::app::App {
+public:
+  BasketballApp();
 
-#endif // BASKETBALL_GAME_BASKETBALL_APP_H
+};
+
+} // namespace basketball

@@ -1,4 +1,5 @@
 #include "offense.h"
+#include <cinder/Rand.h>
 
 namespace basketball {
 
@@ -27,7 +28,13 @@ void Offense::CalculateShotPercentage(double power) {
 
 bool Offense::DetermineShotResult(Player &current_player,
                                   std::string &user_input) {
-
-  return false;
+  float random_percentage = ci::randFloat(kMinimumPercentage, kOptimalPercentage);
+  if (random_percentage > make_percentage_) {
+    return false;
+  } else {
+    current_player.AdjustScore(user_input);
+    return true;
+  }
 }
+
 } // namespace basketball
