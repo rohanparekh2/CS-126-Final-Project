@@ -17,6 +17,6 @@ void Player::AdjustScore(std::string &shot_type){
     score_ += 3;
   }
 }
-
+const std::string &Player::GetName() const { return name_; }
 
 }// namespace basketball

@@ -15,6 +15,8 @@ private:
   size_t score_;
   std::string name_;
 
+public:
+  const std::string &GetName() const;
 };
 
 } // namespace basketball

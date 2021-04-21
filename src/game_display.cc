@@ -14,6 +14,12 @@ void basketball::GameDisplay::Update() {
 
   Offense offense = Offense();
 
+  while ()
+  ci::gl::drawStringCentered(
+      player_one_name_.,
+      glm::vec2(400, 400),
+      ci::Color("black"));
+  // Do Key Down
 
 }
 } // namespace basketball
