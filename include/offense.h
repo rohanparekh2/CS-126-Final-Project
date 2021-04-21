@@ -14,7 +14,7 @@ public:
 
   void CalculateShotPercentage(double power);
 
-  bool DetermineShotResult(Player& current_player, std::string& user_input);
+  bool DetermineShotResult(Player& current_player, std::string& user_input) const;
 
 private:
   double make_percentage_;

@@ -51,7 +51,8 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND SOURCE_FILES src/offense.cc
                          src/player.cc
-                         src/basketball_app.cc)
+                         src/basketball_app.cc
+                         src/game_display.cc)
 
 add_executable(main apps/main.cc ${SOURCE_FILES})
 target_include_directories(main PRIVATE include)

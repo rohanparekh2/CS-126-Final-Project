@@ -10,7 +10,7 @@ Player::Player(std::string &name) {
   name_ = name;
 }
 
-void Player::AdjustScore(std::string &shot_type) {
+void Player::AdjustScore(std::string &shot_type){
   if (shot_type == "layup" || shot_type == "midrange") {
     score_ += 2;
   } else {
