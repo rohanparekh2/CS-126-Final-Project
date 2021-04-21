@@ -17,11 +17,16 @@ void Offense::SelectShot(std::string &user_input){
 }
 
 void Offense::CalculateShotPercentage(double power){
+  double new_percentage;
   if (power < kMinPower || power > kMaxPower) {
     make_percentage_ = 0;
   } else {
+    new_percentage = power + make_percentage_;
+    if (new_percentage > kOptimalPercentage) {
+      new_percentage = kOptimalPercentage - (new_percentage - kOptimalPercentage);
+    }
     make_percentage_ =
-        (make_percentage_ * ((power + make_percentage_) / kOptimalPercentage)) +
+        (make_percentage_ * (new_percentage / kOptimalPercentage)) +
         kPowerBonus;
   }
 }
