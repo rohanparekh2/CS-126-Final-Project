@@ -31,7 +31,7 @@ void Offense::CalculateShotPercentage(double power){
   }
 }
 
-bool Offense::DetermineShotResult(Player &current_player,
+bool Offense::DetermineShotResult(Player& current_player,
                                   std::string &user_input) const{
   float random_percentage = ci::randFloat(kMinimumPercentage, kOptimalPercentage);
   if (random_percentage > make_percentage_) {
