@@ -10,7 +10,7 @@ void BasketballApp::draw() {
 }
 void BasketballApp::keyDown(ci::app::KeyEvent event) {
   // Should call a function inside game_display instead of being set to
-  // shot_type
+  // shot_type variable
   switch (event.getChar()) {
   case 'l':
     shot_type = "layup";
