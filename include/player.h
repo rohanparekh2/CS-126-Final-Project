@@ -11,7 +11,7 @@ public:
 
   void AdjustScore(std::string& shot_type);
 
-  bool operator!=(const Player& player);
+  friend bool operator==(const Player& player_one, const Player& player_two);
 
   size_t GetScore() const;
 

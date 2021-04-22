@@ -20,8 +20,8 @@ void Player::AdjustScore(std::string &shot_type){
 const std::string &Player::GetName() const { return name_; }
 size_t Player::GetScore() const { return score_; }
 
-/*bool Player::operator!=(const Player &player) {
-  return player ==
-}*/
+bool operator==(const Player& player_one, const Player& player_two) {
+  return player_one.GetName() == player_two.GetName();
+}
 
-}// namespace basketball
+}// namespace basketballpl

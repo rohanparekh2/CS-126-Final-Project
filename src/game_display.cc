@@ -16,7 +16,7 @@ void basketball::GameDisplay::Update() {
   Player current_player = player_two;
 
   while (player_one.GetScore() < 10 && player_two.GetScore() < 10) {
-    /*if (current_player == player_one) {
+    if (current_player == player_one) {
       current_player = player_two;
     } else {
       current_player = player_one;
