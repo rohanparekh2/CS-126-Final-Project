@@ -10,6 +10,11 @@ class BasketballApp : public ci::app::App {
 public:
   BasketballApp();
 
+  void draw() override;
+  void keyDown(ci::app::KeyEvent event) override;
+
+private:
+  std::string shot_type;
 };
 
 } // namespace basketball

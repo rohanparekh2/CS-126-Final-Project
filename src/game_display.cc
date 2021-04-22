@@ -22,17 +22,17 @@ void basketball::GameDisplay::Update() {
             "Court shot.",
         glm::vec2(400, 400), ci::Color("black"));
     // Do Key Down
-    //offense.SelectShot("user input");
-    //Use power meter to get power
-    //offense.CalculateShotPercentage("get power from power meter");
-    bool result = offense.DetermineShotResult(player_two, (std::string &)"user input from keys");
+    // offense.SelectShot("user input");
+    // Use power meter to get power
+    // offense.CalculateShotPercentage("get power from power meter");
+    bool result = offense.DetermineShotResult(
+        player_two, (std::string &)"user input from keys");
     if (result) {
-      ci::gl::drawStringCentered(
-          player_two.GetName() +
-          " made the (user input)",
-          glm::vec2(200, 200), ci::Color("black"));
+      ci::gl::drawStringCentered(player_two.GetName() +
+                                     " made the (user input)",
+                                 glm::vec2(200, 200),
+                                 ci::Color("black"));
     }
-
   }
 }
 } // namespace basketball
