@@ -30,7 +30,7 @@ void basketball::GameDisplay::Update() {
       ci::gl::drawStringCentered(
           player_two.GetName() +
           " made the (user input)",
-          glm::vec2(400, 400), ci::Color("black"));
+          glm::vec2(200, 200), ci::Color("black"));
     }
 
   }

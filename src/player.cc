@@ -24,4 +24,4 @@ bool operator==(const Player& player_one, const Player& player_two) {
   return player_one.GetName() == player_two.GetName();
 }
 
-}// namespace basketballpl
+}// namespace basketball
