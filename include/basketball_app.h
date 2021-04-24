@@ -15,6 +15,7 @@ public:
 
 private:
   ShotType shot;
+  const double kWindowSize = 600;
 };
 
 } // namespace basketball

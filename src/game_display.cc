@@ -4,16 +4,24 @@
 
 namespace basketball {
 
-basketball::GameDisplay::GameDisplay() {}
+GameDisplay::GameDisplay() {}
+
+GameDisplay::GameDisplay(Player &player_one, Player &player_two) {
+  player_one_ = player_one;
+  player_two_ = player_two;
+}
 void basketball::GameDisplay::Update() {
   // Let users choose names
-  player_one_name_ = "Player One";
-  player_two_name_ = "Player Two";
-  Player player_one = Player(player_one_name_);
-  Player player_two = Player(player_two_name_);
 
   Offense offense = Offense();
-  while (player_one.GetScore() < 10 && player_two.GetScore() < 10) {
+  if (player_one.GetScore() >= 10 || player_two.GetScore() >= 10) {
+    if (player_two.GetScore() >=) {
+      ci::gl::drawStringCentered(
+          player_two.GetName() +
+          " has won the game",
+          glm::vec2(200, 200), ci::Color("black"));
+    }
+  }
     std::swap(player_one, player_two);
     ci::gl::drawStringCentered(
         player_two.GetName() +
@@ -34,6 +42,5 @@ void basketball::GameDisplay::Update() {
                                  glm::vec2(200, 200),
                                  ci::Color("black"));
     }
-  }
 }
 } // namespace basketball

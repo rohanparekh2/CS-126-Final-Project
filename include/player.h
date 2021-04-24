@@ -22,6 +22,8 @@ public:
    */
   void AdjustScore(ShotType &shot);
 
+  Player DetermineWinner(Player& player_one, Player& player_two) const;
+
   /**
  * Overlaods == operator
  * @param player_one The first player

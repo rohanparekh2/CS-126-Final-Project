@@ -18,6 +18,13 @@ void Player::AdjustScore(ShotType &shot){
     score_ += 3;
   }
 }
+
+Player Player::DetermineWinner(Player &player_one, Player& player_two) const{
+  if (player_one.GetScore() > player_two.GetScore()) {
+    return player_one;
+  }
+  return player_two;
+}
 const std::string &Player::GetName() const { return name_; }
 size_t Player::GetScore() const { return score_; }
 

@@ -2,8 +2,10 @@
 #include "basketball_app.h"
 
 namespace basketball {
-basketball::BasketballApp::BasketballApp() {
-  // create window and edit size
+
+BasketballApp::BasketballApp() {
+  ci::app::setWindowSize((int)kWindowSize,
+                         (int)kWindowSize);
 }
 void BasketballApp::draw() {
   // draw out the court and add hoop/ball
