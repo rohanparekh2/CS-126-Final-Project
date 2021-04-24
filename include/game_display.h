@@ -11,6 +11,8 @@ public:
  GameDisplay(Player& player_one, Player& player_two);
 
  void Update();
+
+  Player DetermineWinner(Player& player_one, Player& player_two) const;
 private:
   Player player_one_;
   Player player_two_;
