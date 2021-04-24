@@ -25,8 +25,9 @@ void basketball::GameDisplay::Update() {
     // offense.SelectShot("user input");
     // Use power meter to get power
     // offense.CalculateShotPercentage("get power from power meter");
+    ShotType shot = ShotType::Midrange;
     bool result = offense.DetermineShotResult(
-        player_two, (std::string &)"user input from keys");
+        player_two, shot);
     if (result) {
       ci::gl::drawStringCentered(player_two.GetName() +
                                      " made the (user input)",

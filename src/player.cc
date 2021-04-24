@@ -1,4 +1,5 @@
 #include "player.h"
+#include <offense.h>
 #include <string>
 
 namespace basketball {
@@ -10,8 +11,8 @@ Player::Player(std::string &name) {
   name_ = name;
 }
 
-void Player::AdjustScore(std::string &shot_type){
-  if (shot_type == "layup" || shot_type == "midrange") {
+void Player::AdjustScore(ShotType &shot){
+  if (shot == ShotType::Layup || shot == ShotType::Midrange) {
     score_ += 2;
   } else {
     score_ += 3;

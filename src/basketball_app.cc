@@ -13,13 +13,13 @@ void BasketballApp::keyDown(ci::app::KeyEvent event) {
   // shot_type variable
   switch (event.getChar()) {
   case 'l':
-    shot_type = "layup";
+    shot = ShotType::Layup;
   case 'm':
-    shot_type = "midrange";
+    shot = ShotType::Midrange;
   case 't':
-    shot_type = "three-pointer";
+    shot = ShotType::ThreePointer;
   case 'h':
-    shot_type = "half court";
+    shot = ShotType::HalfCourt;
   }
 }
 

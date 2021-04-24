@@ -4,12 +4,13 @@
 namespace basketball {
 
 Offense::Offense() { make_percentage_ = 0; }
-void Offense::SelectShot(std::string &user_input){
-  if (user_input == "layup") {
+
+void Offense::SelectShot(ShotType& user_input){
+  if (user_input == ShotType::Layup) {
     make_percentage_ = 85;
-  } else if (user_input == "midrange") {
+  } else if (user_input == ShotType::Midrange) {
     make_percentage_ = 55;
-  } else if (user_input == "three-pointer") {
+  } else if (user_input == ShotType::ThreePointer) {
     make_percentage_ = 35;
   } else {
     make_percentage_ = 10;
@@ -32,7 +33,7 @@ void Offense::CalculateShotPercentage(double power){
 }
 
 bool Offense::DetermineShotResult(Player& current_player,
-                                  std::string &user_input) const{
+                                  ShotType &user_input) const{
   float random_percentage = ci::randFloat(kMinimumPercentage, kOptimalPercentage);
   if (random_percentage > make_percentage_) {
     return false;

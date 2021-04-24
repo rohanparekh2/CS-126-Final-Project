@@ -6,6 +6,13 @@
 
 namespace basketball {
 
+enum class ShotType {
+  Layup,
+  Midrange,
+  ThreePointer,
+  HalfCourt,
+};
+
 class Offense {
 public:
   /**
@@ -17,7 +24,7 @@ public:
    * Selects shot and calculates initial percentage
    * @param user_input Input decided by user through keys
    */
-  void SelectShot(std::string &user_input);
+  void SelectShot(ShotType &user_input);
   /**
    * Calculates Probability of a Certain Shot Being Made when power is taken
    * into account
@@ -31,7 +38,7 @@ public:
    *  @return bool that represents if the shot was made or not
    */
   bool DetermineShotResult(Player &current_player,
-                           std::string &user_input) const;
+                           ShotType &user_input) const;
   /**
    * Gets the percentage that a shot is made
    *  @return double that represents the chance that the shot is made

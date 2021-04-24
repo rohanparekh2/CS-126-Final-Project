@@ -1,5 +1,6 @@
 #pragma once
 
+#include "offense.h"
 #include <string>
 namespace basketball {
 
@@ -19,7 +20,7 @@ public:
    * Adjusts the score of the player depending on tha shot that is made
    * @param shot_type Type of shot taken
    */
-  void AdjustScore(std::string &shot_type);
+  void AdjustScore(ShotType &shot);
 
   /**
  * Overlaods == operator

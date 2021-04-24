@@ -14,7 +14,7 @@ public:
   void keyDown(ci::app::KeyEvent event) override;
 
 private:
-  std::string shot_type;
+  ShotType shot;
 };
 
 } // namespace basketball
