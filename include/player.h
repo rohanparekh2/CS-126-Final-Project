@@ -1,6 +1,4 @@
 #pragma once
-
-#include "offense.h"
 #include <string>
 namespace basketball {
 
@@ -15,12 +13,6 @@ public:
    * @param name The name of the player
    */
   Player(std::string &name);
-
-  /**
-   * Adjusts the score of the player depending on tha shot that is made
-   * @param shot_type Type of shot taken
-   */
-  void AdjustScore(ShotType &shot);
 
   /**
  * Overlaods == operator
@@ -39,6 +31,8 @@ public:
    * @return The player's name
    */
   const std::string &GetName() const;
+
+  void SetScore(size_t score);
 
 private:
   size_t score_;

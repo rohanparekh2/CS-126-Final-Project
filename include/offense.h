@@ -1,20 +1,21 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
-#include "player.h"
+#include <player.h>
 #include <string>
 
 namespace basketball {
 
-enum class ShotType {
-  Layup,
-  Midrange,
-  ThreePointer,
-  HalfCourt,
-};
-
 class Offense {
 public:
+  enum ShotType {
+    Default,
+    Layup,
+    Midrange,
+    ThreePointer,
+    HalfCourt,
+  };
+
   /**
    * Creates an Offense Object.
    */
@@ -37,8 +38,14 @@ public:
    *  @param user_input Type of shot being taken
    *  @return bool that represents if the shot was made or not
    */
-  bool DetermineShotResult(Player &current_player,
-                           ShotType &user_input) const;
+  bool DetermineShotResult(Player &current_player, ShotType &user_input) const;
+
+  /**
+   * Adjusts the score of the player depending on the shot that is made
+   * @param shot_type Type of shot taken
+   */
+  void AdjustScore(Player &current_player, Offense::ShotType &shot) const;
+
   /**
    * Gets the percentage that a shot is made
    *  @return double that represents the chance that the shot is made

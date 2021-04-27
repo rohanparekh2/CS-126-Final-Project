@@ -2,6 +2,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "game_display.h"
 #include "offense.h"
 
 namespace basketball {
@@ -14,7 +15,11 @@ public:
   void keyDown(ci::app::KeyEvent event) override;
 
 private:
-  ShotType shot;
+  std::string kPlayerOneName = "Player 1";
+  std::string kPlayerTwoName = "Player 2";
+  Player player_one_ = Player(kPlayerOneName);
+  Player player_two_ = Player(kPlayerTwoName);
+  GameDisplay game_;
   const double kWindowSize = 600;
 };
 

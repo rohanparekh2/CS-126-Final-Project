@@ -38,8 +38,16 @@ bool Offense::DetermineShotResult(Player& current_player,
   if (random_percentage > make_percentage_) {
     return false;
   } else {
-    current_player.AdjustScore(user_input);
+    AdjustScore(current_player, user_input);
     return true;
+  }
+}
+
+void Offense::AdjustScore(Player& current_player, Offense::ShotType &shot) const {
+  if (shot == Offense::ShotType::Layup || shot == Offense::ShotType::Midrange) {
+    current_player.SetScore(current_player.GetScore() + 2);
+  } else {
+    current_player.SetScore(current_player.GetScore() + 3);
   }
 }
 double Offense::GetMakePercentage() const { return make_percentage_; }
