@@ -3,6 +3,7 @@ using ci::gl::color;
 using ci::Color;
 using glm::vec2;
 using ci::gl::drawStrokedRect;
+using ci::gl::drawSolidRect;
 using ci::Rectf;
 
 namespace basketball {
@@ -14,6 +15,7 @@ GameDisplay::GameDisplay(Player &player_one, Player &player_two) {
   player_two_ = player_two;
   shot_ = Offense::Default;
   power_ = 0;
+  current_bar_height_ = kStartingHeight;
 }
 void basketball::GameDisplay::Update() {
   // Let users choose names
@@ -28,7 +30,6 @@ void basketball::GameDisplay::Update() {
   std::swap(player_one_, player_two_);
   CheckShotSelection();
   // Use power meter to get power
-  offense_.CalculateShotPercentage(power_);
   bool result = offense_.DetermineShotResult(player_two_, shot_);
   if (result) {
     ci::gl::drawStringCentered(player_two_.GetName() + " made the (user input)",
@@ -57,15 +58,31 @@ void GameDisplay::CheckShotSelection() {
 }
 
 void GameDisplay::CreatePowerMeter() {
+  if (current_bar_height_ < kEndingHeight) {
+    ++current_bar_height_;
+  } else {
+    --current_bar_height_;
+  }
   while (power_ == 0) {
     color(Color("white"));
 
-    drawStrokedRect(Rectf(vec2(kStartingWidth, kEndingHeight),
-                          vec2(kEndingWidth,kEndingWidth)));
+    drawStrokedRect(Rectf(vec2(kStartingWidth, kStartingHeight),
+                          vec2(kEndingWidth,kEndingHeight)));
+
+    color(Color("blue"));
+
+    drawSolidRect(Rectf(vec2(kStartingWidth, kStartingHeight),
+                          vec2(kEndingWidth, current_bar_height_)));
   }
+  offense_.CalculateShotPercentage(power_);
+}
+
+size_t GameDisplay::CalculatePower() const {
+  return current_bar_height_ - kStartingHeight;
 }
 
 Offense::ShotType GameDisplay::GetShot() const { return shot_; }
 void GameDisplay::SetShot(Offense::ShotType s) { shot_ = s; }
+
 
 } // namespace basketball

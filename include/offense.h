@@ -31,7 +31,7 @@ public:
    * into account
    * @param power Power of the shot determined by the power meter
    */
-  void CalculateShotPercentage(double power);
+  void CalculateShotPercentage(size_t power);
   /**
    * Uses randomization to check if the player made the shot or not
    * @param current_player The player taking the shot

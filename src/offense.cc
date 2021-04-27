@@ -17,7 +17,7 @@ void Offense::SelectShot(ShotType& user_input){
   }
 }
 
-void Offense::CalculateShotPercentage(double power){
+void Offense::CalculateShotPercentage(size_t power){
   double new_percentage;
   if (power < kMinPower || power > kMaxPower) {
     make_percentage_ = 0;
