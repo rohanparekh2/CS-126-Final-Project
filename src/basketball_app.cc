@@ -14,10 +14,7 @@ void BasketballApp::draw() {
       loadAsset("/court.jpeg")));
   ci::gl::draw(background, getWindowBounds());
 
-  // draw out the court and add hoop/ball
-  //ci::gl::drawStrokedRect(ci::Rectf(glm::vec2(100,100),
-                      //  glm::vec2(200,200)));
-  //game_.Update();
+  game_.Update();
 }
 void BasketballApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getChar()) {
