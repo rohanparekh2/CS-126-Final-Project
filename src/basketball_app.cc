@@ -26,4 +26,9 @@ void BasketballApp::keyDown(ci::app::KeyEvent event) {
   }
 }
 
+void BasketballApp::mouseDown(ci::app::MouseEvent event) {
+  size_t power = game_.CalculatePower();
+  game_.SetPower(power);
+}
+
 } // namespace basketball

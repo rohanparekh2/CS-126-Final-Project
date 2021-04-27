@@ -24,6 +24,10 @@ public:
   Offense::ShotType GetShot() const;
 
   void SetShot(Offense::ShotType s);
+
+  size_t GetPower() const;
+
+  void SetPower(size_t p);
 private:
   Player player_one_;
   Player player_two_;

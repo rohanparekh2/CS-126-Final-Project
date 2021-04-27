@@ -13,6 +13,7 @@ public:
 
   void draw() override;
   void keyDown(ci::app::KeyEvent event) override;
+  void mouseDown(ci::app::MouseEvent event) override;
 
 private:
   std::string kPlayerOneName = "Player 1";

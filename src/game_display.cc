@@ -82,7 +82,13 @@ size_t GameDisplay::CalculatePower() const {
 }
 
 Offense::ShotType GameDisplay::GetShot() const { return shot_; }
+
 void GameDisplay::SetShot(Offense::ShotType s) { shot_ = s; }
 
+size_t GameDisplay::GetPower() const { return power_; }
+
+void GameDisplay::SetPower(size_t p) {
+  power_ = p;
+}
 
 } // namespace basketball
