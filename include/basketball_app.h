@@ -22,6 +22,7 @@ private:
   Player player_two_ = Player(kPlayerTwoName);
   GameDisplay game_;
   const double kWindowSize = 600;
+  ci::gl::Texture2dRef background;
 };
 
 } // namespace basketball

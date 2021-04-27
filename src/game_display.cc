@@ -29,11 +29,12 @@ void basketball::GameDisplay::Update() {
   }
   std::swap(player_one_, player_two_);
   CheckShotSelection();
-  // Use power meter to get power
+  CreatePowerMeter();
   bool result = offense_.DetermineShotResult(player_two_, shot_);
   if (result) {
-    ci::gl::drawStringCentered(player_two_.GetName() + " made the (user input)",
-                               glm::vec2(200, 200), ci::Color("black"));
+    ci::gl::drawStringCentered(player_two_.GetName() + " made the shot",
+                               glm::vec2(200, 200),
+                               ci::Color("black"));
   }
 }
 

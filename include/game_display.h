@@ -1,19 +1,19 @@
 #pragma once
 
-#include <string>
-#include "player.h"
 #include "offense.h"
+#include "player.h"
+#include <string>
 namespace basketball {
 
 class GameDisplay {
 public:
- GameDisplay();
+  GameDisplay();
 
- GameDisplay(Player& player_one, Player& player_two);
+  GameDisplay(Player &player_one, Player &player_two);
 
- void Update();
+  void Update();
 
-  Player DetermineWinner(Player& player_one, Player& player_two) const;
+  Player DetermineWinner(Player &player_one, Player &player_two) const;
 
   void CheckShotSelection();
 
@@ -28,6 +28,7 @@ public:
   size_t GetPower() const;
 
   void SetPower(size_t p);
+
 private:
   Player player_one_;
   Player player_two_;
@@ -39,7 +40,6 @@ private:
   size_t kStartingHeight = 400;
   size_t kEndingHeight = 500;
   size_t current_bar_height_;
-
 };
 
 } // namespace basketball
