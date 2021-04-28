@@ -59,16 +59,17 @@ public:
    */
   void CheckShotResult();
 
-  Offense::ShotType GetShot() const;
-
-  size_t GetPower() const;
-
-  bool GetResult() const;
   /**
    * Changes boolean that checks if it is the next player's turn
    * @param next Boolean that checks whose turn it is
    */
   void SetNextPlayer(bool next);
+
+  /**
+ * Changes bar height of the power b ar
+ * @param currentBarHeight height of the power bar
+ */
+  void SetCurrentBarHeight(size_t currentBarHeight);
 
 private:
   Player player_one_;

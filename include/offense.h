@@ -35,8 +35,8 @@ public:
   /**
    * Uses randomization to check if the player made the shot or not
    * @param current_player The player taking the shot
-   *  @param user_input Type of shot being taken
-   *  @return bool that represents if the shot was made or not
+   * @param user_input Type of shot being taken
+   * @return bool that represents if the shot was made or not
    */
   bool DetermineShotResult(Player &current_player, ShotType &user_input) const;
 

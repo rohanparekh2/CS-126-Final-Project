@@ -30,24 +30,26 @@ void basketball::GameDisplay::Draw() {
     // Check if a player has won the game and display winner if so
     Player winner = DetermineWinner(player_one_, player_two_);
     ci::gl::drawStringCentered(winner.GetName() + " has won the game",
-                               glm::vec2(200, 200), ci::Color("black"));
+                               glm::vec2(200, 200),
+                               ci::Color("black"));
     return;
   }
-  // swaps players every turn
+  // Determine if player made shot by using variables determined by KeyDown
   CheckShotSelection();
   CreatePowerMeter();
-  // Determine if player made shot by using variables determined by the KeyDown
-  // and mouseDown methods
   if (shot_ != Offense::Default && power_ != 0) {
     // Display if the player made the shot or not
     if (result_) {
       ci::gl::drawStringCentered(player_two_.GetName() + " made the shot",
-                                 glm::vec2(200, 200), ci::Color("white"));
+                                 glm::vec2(200, 200),
+                                 ci::Color("white"));
     } else {
       ci::gl::drawStringCentered(player_two_.GetName() + " missed the shot",
-                                 glm::vec2(200, 200), ci::Color("white"));
+                                 glm::vec2(200, 200),
+                                 ci::Color("white"));
     }
     if (next_player) {
+      // reset variables if it is the next player's turn and swap players
       shot_ = Offense::Default;
       power_ = 0;
       next_player = false;
@@ -97,6 +99,9 @@ void GameDisplay::CreatePowerMeter() {
                         vec2(kEndingWidth, kStartingHeight)));
   }
 }
+void GameDisplay::SetCurrentBarHeight(size_t currentBarHeight) {
+  current_bar_height_ = currentBarHeight;
+}
 
 size_t GameDisplay::CalculatePower() const {
   return kStartingHeight - current_bar_height_;
@@ -111,14 +116,6 @@ void GameDisplay::CheckShotResult(){
   power_ = CalculatePower();
   offense_.CalculateShotPercentage(power_);
   result_ = offense_.DetermineShotResult(player_two_, shot_);
-}
-
-Offense::ShotType GameDisplay::GetShot() const { return shot_; }
-
-size_t GameDisplay::GetPower() const { return power_; }
-
-bool GameDisplay::GetResult() const {
-  return result_;
 }
 
 void GameDisplay::SetNextPlayer(bool next) {

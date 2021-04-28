@@ -43,6 +43,12 @@ public:
    */
   const std::string &GetName() const;
 
+  /**
+ * Sets the score of the player
+ * @param s The player's score
+ */
+  void SetScore(size_t s);
+
 private:
   size_t score_;
   std::string name_;

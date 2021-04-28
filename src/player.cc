@@ -16,7 +16,6 @@ size_t Player::GetScore() const { return score_; }
 bool operator==(const Player& player_one, const Player& player_two) {
   return player_one.GetName() == player_two.GetName();
 }
-void Player::SetScore(size_t score) { score_ = score; }
 
 void Player::TwoPointer() {
   score_+= 2;
@@ -24,6 +23,9 @@ void Player::TwoPointer() {
 
 void Player::ThreePointer() {
   score_+= 3;
+}
+void Player::SetScore(size_t s) {
+  score_ = s;
 }
 
 }// namespace basketball

@@ -62,7 +62,8 @@ ci_make_app(
         INCLUDES        include
 )
 
-list(APPEND TEST_FILES tests/test_offense.cc)
+list(APPEND TEST_FILES tests/test_offense.cc
+                  tests/test_game_display.cc)
 
 ci_make_app(
         APP_NAME        basketball-test
