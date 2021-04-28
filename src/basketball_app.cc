@@ -4,38 +4,50 @@
 
 namespace basketball {
 
-BasketballApp::BasketballApp()
-    : game_(player_two_, player_one_) {
+BasketballApp::BasketballApp() : game_(player_two_, player_one_) {
+  offense_ = Offense();
   ci::app::setWindowSize((int)kWindowSize, (int)kWindowSize);
 }
 void BasketballApp::draw() {
-  //https://libcinder.org/docs/guides/opengl/part4.html
-  background = ci::gl::Texture2d::create(loadImage(
-      loadAsset("/court.jpeg")));
+  // https://libcinder.org/docs/guides/opengl/part4.html
+  background = ci::gl::Texture2d::create(loadImage(loadAsset("/court.jpeg")));
   ci::gl::draw(background, getWindowBounds());
 
   game_.Update();
 }
 void BasketballApp::keyDown(ci::app::KeyEvent event) {
-  switch (event.getChar()) {
-    case 'l':
-      game_.SetShot(Offense::Layup);
-      break;
-    case 'm':
-      game_.SetShot(Offense::Midrange);
-      break;
-    case 't':
-      game_.SetShot(Offense::ThreePointer);
-      break;
-    case 'h':
-      game_.SetShot(Offense::HalfCourt);
-      break;
+  switch (event.getCode()) {
+  case ci::app::KeyEvent::KEY_l:
+    shot_ = Offense::Layup;
+    game_.SetShot(shot_);
+    offense_.SelectShot(shot_);
+    break;
+  case ci::app::KeyEvent::KEY_m:
+    shot_ = Offense::Midrange;
+    game_.SetShot(shot_);
+    offense_.SelectShot(shot_);
+    break;
+  case ci::app::KeyEvent::KEY_t:
+    shot_ = Offense::ThreePointer;
+    game_.SetShot(shot_);
+    offense_.SelectShot(shot_);
+    break;
+  case ci::app::KeyEvent::KEY_h:
+    shot_ = Offense::HalfCourt;
+    game_.SetShot(shot_);
+    offense_.SelectShot(shot_);
+    break;
+  case ci::app::KeyEvent::KEY_RETURN:
+    game_.SetNextPlayer(true);
+    break;
+  case ci::app::KeyEvent::KEY_SPACE:
+    size_t power = game_.CalculatePower();
+    game_.SetPower(power);
+    offense_.CalculateShotPercentage(power);
+    bool result = offense_.DetermineShotResult(player_two_, shot_);
+    game_.SetResult(result);
+    break;
   }
-}
-
-void BasketballApp::mouseDown(ci::app::MouseEvent event) {
-  size_t power = game_.CalculatePower();
-  game_.SetPower(power);
 }
 
 } // namespace basketball

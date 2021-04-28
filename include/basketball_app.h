@@ -13,7 +13,6 @@ public:
 
   void draw() override;
   void keyDown(ci::app::KeyEvent event) override;
-  void mouseDown(ci::app::MouseEvent event) override;
 
 private:
   std::string kPlayerOneName = "Player 1";
@@ -21,6 +20,8 @@ private:
   Player player_one_ = Player(kPlayerOneName);
   Player player_two_ = Player(kPlayerTwoName);
   GameDisplay game_;
+  Offense offense_;
+  Offense::ShotType shot_;
   const double kWindowSize = 600;
   ci::gl::Texture2dRef background;
 };

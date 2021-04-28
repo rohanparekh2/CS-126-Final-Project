@@ -29,17 +29,27 @@ public:
 
   void SetPower(size_t p);
 
+  bool GetResult() const;
+
+  void SetResult(bool r);
+
+  void SetNextPlayer(bool next);
+
+  bool GetNextPlayer() const;
+
 private:
   Player player_one_;
   Player player_two_;
   Offense::ShotType shot_;
-  Offense offense_;
   size_t power_;
   size_t kStartingWidth = 400;
   size_t kEndingWidth = 425;
-  size_t kStartingHeight = 400;
-  size_t kEndingHeight = 500;
+  size_t kStartingHeight = 500;
+  size_t kEndingHeight = 400;
   size_t current_bar_height_;
+  int change_in_power_;
+  bool result_;
+  bool next_player;
 };
 
 } // namespace basketball

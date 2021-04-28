@@ -18,6 +18,7 @@ void Offense::SelectShot(ShotType& user_input){
 }
 
 void Offense::CalculateShotPercentage(size_t power){
+  std::cout << power << std::endl;
   double new_percentage;
   if (power < kMinPower || power > kMaxPower) {
     make_percentage_ = 0;
@@ -35,6 +36,7 @@ void Offense::CalculateShotPercentage(size_t power){
 bool Offense::DetermineShotResult(Player& current_player,
                                   ShotType &user_input) const{
   float random_percentage = ci::randFloat(kMinimumPercentage, kOptimalPercentage);
+  std::cout << make_percentage_ << std::endl;
   if (random_percentage > make_percentage_) {
     return false;
   } else {
