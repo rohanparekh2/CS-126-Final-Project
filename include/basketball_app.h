@@ -20,8 +20,6 @@ private:
   Player player_one_ = Player(kPlayerOneName);
   Player player_two_ = Player(kPlayerTwoName);
   GameDisplay game_;
-  Offense offense_;
-  Offense::ShotType shot_;
   const double kWindowSize = 600;
   ci::gl::Texture2dRef background;
 };

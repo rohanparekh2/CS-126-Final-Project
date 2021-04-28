@@ -14,15 +14,16 @@ GameDisplay::GameDisplay() {}
 GameDisplay::GameDisplay(Player &player_one, Player &player_two) {
   player_one_ = player_one;
   player_two_ = player_two;
+  offense_ = Offense();
   shot_ = Offense::Default;
   power_ = 0;
   current_bar_height_ = kStartingHeight - 1;
-  change_in_power_ = -3;
+  change_in_power_ = -5;
   result_ = false;
   next_player = false;
 }
 
-void basketball::GameDisplay::Update() {
+void basketball::GameDisplay::Draw() {
   // Let users choose names
 
   if (player_one_.GetScore() >= 10 || player_two_.GetScore() >= 10) {
@@ -47,6 +48,7 @@ void basketball::GameDisplay::Update() {
                                  glm::vec2(200, 200), ci::Color("white"));
     }
     if (next_player) {
+      std::cout << player_one_.GetScore() << player_two_.GetScore() << std::endl;
       shot_ = Offense::Default;
       power_ = 0;
       next_player = false;
@@ -99,6 +101,17 @@ void GameDisplay::CreatePowerMeter() {
 
 size_t GameDisplay::CalculatePower() const {
   return kStartingHeight - current_bar_height_;
+}
+
+void GameDisplay::ConvertKeyToShot(Offense::ShotType shot_type) {
+  shot_ = shot_type;
+  offense_.SelectShot(shot_);
+}
+
+void GameDisplay::CheckShotResult(){
+  power_ = CalculatePower();
+  offense_.CalculateShotPercentage(power_);
+  result_ = offense_.DetermineShotResult(player_two_, shot_);
 }
 
 Offense::ShotType GameDisplay::GetShot() const { return shot_; }

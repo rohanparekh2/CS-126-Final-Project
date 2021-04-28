@@ -18,4 +18,12 @@ bool operator==(const Player& player_one, const Player& player_two) {
 }
 void Player::SetScore(size_t score) { score_ = score; }
 
+void Player::TwoPointer() {
+  score_+= 2;
+}
+
+void Player::ThreePointer() {
+  score_+= 3;
+}
+
 }// namespace basketball

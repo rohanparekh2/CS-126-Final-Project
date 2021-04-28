@@ -18,7 +18,6 @@ void Offense::SelectShot(ShotType& user_input){
 }
 
 void Offense::CalculateShotPercentage(size_t power){
-  std::cout << power << std::endl;
   double new_percentage;
   if (power < kMinPower || power > kMaxPower) {
     make_percentage_ = 0;
@@ -36,7 +35,6 @@ void Offense::CalculateShotPercentage(size_t power){
 bool Offense::DetermineShotResult(Player& current_player,
                                   ShotType &user_input) const{
   float random_percentage = ci::randFloat(kMinimumPercentage, kOptimalPercentage);
-  std::cout << make_percentage_ << std::endl;
   if (random_percentage > make_percentage_) {
     return false;
   } else {
@@ -47,9 +45,9 @@ bool Offense::DetermineShotResult(Player& current_player,
 
 void Offense::AdjustScore(Player& current_player, Offense::ShotType &shot) const {
   if (shot == Offense::ShotType::Layup || shot == Offense::ShotType::Midrange) {
-    current_player.SetScore(current_player.GetScore() + 2);
+    current_player.TwoPointer();
   } else {
-    current_player.SetScore(current_player.GetScore() + 3);
+    current_player.ThreePointer();
   }
 }
 double Offense::GetMakePercentage() const { return make_percentage_; }

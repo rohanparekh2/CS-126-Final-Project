@@ -21,6 +21,10 @@ public:
  * @return bool that represents if the players are the same
  */
   friend bool operator==(const Player &player_one, const Player &player_two);
+
+  void TwoPointer();
+
+  void ThreePointer();
   /**
    * Returns the current score of the player
    * @return The player's score

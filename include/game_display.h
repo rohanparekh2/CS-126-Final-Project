@@ -11,7 +11,7 @@ public:
 
   GameDisplay(Player &player_one, Player &player_two);
 
-  void Update();
+  void Draw();
 
   Player DetermineWinner(Player &player_one, Player &player_two) const;
 
@@ -20,6 +20,10 @@ public:
   void CreatePowerMeter();
 
   size_t CalculatePower() const;
+
+  void ConvertKeyToShot(Offense::ShotType shot_type);
+
+  void CheckShotResult();
 
   Offense::ShotType GetShot() const;
 
@@ -41,6 +45,7 @@ private:
   Player player_one_;
   Player player_two_;
   Offense::ShotType shot_;
+  Offense offense_;
   size_t power_;
   size_t kStartingWidth = 400;
   size_t kEndingWidth = 425;
