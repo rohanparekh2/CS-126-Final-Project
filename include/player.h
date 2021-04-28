@@ -15,16 +15,23 @@ public:
   Player(std::string &name);
 
   /**
- * Overlaods == operator
- * @param player_one The first player
- * @param player_two the second player
- * @return bool that represents if the players are the same
- */
+   * Overlaods == operator
+   * @param player_one The first player
+   * @param player_two the second player
+   * @return bool that represents if the players are the same
+   */
   friend bool operator==(const Player &player_one, const Player &player_two);
 
+  /**
+   * Adds two points if player made 2-pointer
+   */
   void TwoPointer();
 
+  /**
+   * Adds two points if player made 3-pointer
+   */
   void ThreePointer();
+
   /**
    * Returns the current score of the player
    * @return The player's score
@@ -35,8 +42,6 @@ public:
    * @return The player's name
    */
   const std::string &GetName() const;
-
-  void SetScore(size_t score);
 
 private:
   size_t score_;

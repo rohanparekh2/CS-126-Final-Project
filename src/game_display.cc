@@ -48,7 +48,6 @@ void basketball::GameDisplay::Draw() {
                                  glm::vec2(200, 200), ci::Color("white"));
     }
     if (next_player) {
-      std::cout << player_one_.GetScore() << player_two_.GetScore() << std::endl;
       shot_ = Offense::Default;
       power_ = 0;
       next_player = false;
@@ -116,21 +115,10 @@ void GameDisplay::CheckShotResult(){
 
 Offense::ShotType GameDisplay::GetShot() const { return shot_; }
 
-void GameDisplay::SetShot(Offense::ShotType s) { shot_ = s; }
-
 size_t GameDisplay::GetPower() const { return power_; }
-
-void GameDisplay::SetPower(size_t p) { power_ = p; }
 
 bool GameDisplay::GetResult() const {
   return result_;
-}
-
-void GameDisplay::SetResult(bool r) {
-  result_ = r;
-}
-bool GameDisplay::GetNextPlayer() const {
-  return next_player;
 }
 
 void GameDisplay::SetNextPlayer(bool next) {

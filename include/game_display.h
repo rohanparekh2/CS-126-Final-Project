@@ -7,39 +7,68 @@ namespace basketball {
 
 class GameDisplay {
 public:
+  /**
+   * Creates new Game Display Object
+   */
   GameDisplay();
 
+  /**
+   * Creates new Game Display Object that takes in players
+   * @param player_one The first player that gets to take a shot
+   * @param player_two The second player that gets to take a shot
+   */
   GameDisplay(Player &player_one, Player &player_two);
 
+  /**
+   * Draws the text and power meter on the screen
+   */
   void Draw();
 
+  /**
+   * When the game is over, this checks who has won the game
+   * @param player_one The first player
+   * @param player_two The second player
+   * @return Player with the highest score
+   */
   Player DetermineWinner(Player &player_one, Player &player_two) const;
 
+  /**
+   * Checks to see if the player has taken a shot yet
+   */
   void CheckShotSelection();
 
+  /**
+   * Checks to see if the player has chosen a power yet
+   */
   void CreatePowerMeter();
 
+  /**
+   * Calculates power based on the position of the meter
+   * @return The power of the current shot
+   */
   size_t CalculatePower() const;
 
+  /**
+   * Determines the shot taken based on the key that is pushed
+   * @param shot_type Type of shit taken by player
+   */
   void ConvertKeyToShot(Offense::ShotType shot_type);
 
+  /**
+   * Chooses the power based on keys and finds the shot result
+   */
   void CheckShotResult();
 
   Offense::ShotType GetShot() const;
 
-  void SetShot(Offense::ShotType s);
-
   size_t GetPower() const;
 
-  void SetPower(size_t p);
-
   bool GetResult() const;
-
-  void SetResult(bool r);
-
+  /**
+   * Changes boolean that checks if it is the next player's turn
+   * @param next Boolean that checks whose turn it is
+   */
   void SetNextPlayer(bool next);
-
-  bool GetNextPlayer() const;
 
 private:
   Player player_one_;

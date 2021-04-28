@@ -6,9 +6,15 @@
 #include "offense.h"
 
 namespace basketball {
-
+/**
+ * Creates a new Basketball Game that lets the user use keys to pick their shot
+ * and power
+ */
 class BasketballApp : public ci::app::App {
 public:
+  /**
+   * Creates a new Basketball App.
+   */
   BasketballApp();
 
   void draw() override;
