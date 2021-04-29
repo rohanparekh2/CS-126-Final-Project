@@ -71,6 +71,9 @@ public:
  */
   void SetCurrentBarHeight(size_t currentBarHeight);
 
+  Offense::ShotType GetShot() const;
+
+  size_t GetPower() const;
 private:
   Player player_one_;
   Player player_two_;

@@ -16,7 +16,7 @@ GameDisplay::GameDisplay(Player &player_one, Player &player_two) {
   player_two_ = player_two;
   offense_ = Offense();
   shot_ = Offense::Default;
-  power_ = 0;
+  power_ = -1;
   current_bar_height_ = kStartingHeight - 1;
   change_in_power_ = -5;
   result_ = false;
@@ -37,7 +37,7 @@ void basketball::GameDisplay::Draw() {
   // Determine if player made shot by using variables determined by KeyDown
   CheckShotSelection();
   CreatePowerMeter();
-  if (shot_ != Offense::Default && power_ != 0) {
+  if (shot_ != Offense::Default && power_ != -1) {
     // Display if the player made the shot or not
     if (result_) {
       ci::gl::drawStringCentered(player_two_.GetName() + " made the shot",
@@ -51,7 +51,7 @@ void basketball::GameDisplay::Draw() {
     if (next_player) {
       // reset variables if it is the next player's turn and swap players
       shot_ = Offense::Default;
-      power_ = 0;
+      power_ = -1;
       next_player = false;
       std::swap(player_one_, player_two_);
     }
@@ -87,7 +87,7 @@ void GameDisplay::CreatePowerMeter() {
   current_bar_height_ += change_in_power_;
 
   // Print the outline and the moving power bar
-  if (power_ == 0 && shot_ != Offense::Default) {
+  if (power_ == -1 && shot_ != Offense::Default) {
     color(Color("white"));
 
     drawStrokedRect(Rectf(vec2(kStartingWidth, kEndingHeight),
@@ -108,18 +108,28 @@ size_t GameDisplay::CalculatePower() const {
 }
 
 void GameDisplay::ConvertKeyToShot(Offense::ShotType shot_type) {
-  shot_ = shot_type;
-  offense_.SelectShot(shot_);
+  if (shot_ == Offense::Default) {
+    shot_ = shot_type;
+    offense_.SelectShot(shot_);
+  }
 }
 
 void GameDisplay::CheckShotResult(){
-  power_ = CalculatePower();
-  offense_.CalculateShotPercentage(power_);
-  result_ = offense_.DetermineShotResult(player_two_, shot_);
+  if (shot_ != Offense::Default && power_ == -1) {
+    power_ = CalculatePower();
+    offense_.CalculateShotPercentage(power_);
+    result_ = offense_.DetermineShotResult(player_two_, shot_);
+  }
 }
 
 void GameDisplay::SetNextPlayer(bool next) {
-  next_player = next;
+  if (shot_ != Offense::Default && power_ != -1) {
+    next_player = next;
+  }
 }
+
+Offense::ShotType GameDisplay::GetShot() const { return shot_; }
+
+size_t GameDisplay::GetPower() const { return power_; }
 
 } // namespace basketball
