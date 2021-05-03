@@ -1,4 +1,4 @@
-#include "game_display.h"
+#include "game_loop.h"
 #include<unistd.h>
 using ci::Color;
 using ci::Rectf;
@@ -9,9 +9,9 @@ using glm::vec2;
 
 namespace basketball {
 
-GameDisplay::GameDisplay() {}
+GameLoop::GameLoop() {}
 
-GameDisplay::GameDisplay(Player &player_one, Player &player_two) {
+GameLoop::GameLoop(Player &player_one, Player &player_two) {
   player_one_ = player_one;
   player_two_ = player_two;
   offense_ = Offense();
@@ -23,7 +23,7 @@ GameDisplay::GameDisplay(Player &player_one, Player &player_two) {
   next_player = false;
 }
 
-void basketball::GameDisplay::Draw() {
+void basketball::GameLoop::Draw() {
   // Let users choose names
 
   if (player_one_.GetScore() >= 10 || player_two_.GetScore() >= 10) {
@@ -37,7 +37,9 @@ void basketball::GameDisplay::Draw() {
   // Determine if player made shot by using variables determined by KeyDown
   CheckShotSelection();
   CreatePowerMeter();
-  if (shot_ != Offense::Default && power_ != -1) {
+  current_position_ = ChangeBallPosition(current_position_, result_);
+  //Change Ball position
+  if (shot_ != Offense::Default && power_ != -1) { // check if animation done
     // Display if the player made the shot or not
     if (result_) {
       ci::gl::drawStringCentered(player_two_.GetName() + " made the shot",
@@ -58,7 +60,7 @@ void basketball::GameDisplay::Draw() {
   }
 }
 
-Player GameDisplay::DetermineWinner(Player &player_one,
+Player GameLoop::DetermineWinner(Player &player_one,
                                     Player &player_two) const {
   if (player_one.GetScore() > player_two.GetScore()) {
     return player_one;
@@ -66,19 +68,24 @@ Player GameDisplay::DetermineWinner(Player &player_one,
   return player_two;
 }
 
-void GameDisplay::CheckShotSelection() {
+void GameLoop::CheckShotSelection() {
   // While the KeyDown has not been executed, display this message
   if (shot_ == Offense::Default) {
+    cinder::Font font = cinder::Font("Arial", 20);
     ci::gl::drawStringCentered(
         player_two_.GetName() +
-            " pick which shot you want to take. Press L to take a layup, M to "
-            "take a midrange, T to take a three pointer, and H to take a Half "
-            "Court shot.",
-        glm::vec2(400, 400), ci::Color("white"));
+            " pick which shot you want to take.",
+        glm::vec2(240, 200), ci::Color("white"), font);
+    ci::gl::drawStringCentered(
+        "Press L to take a layup, M to take a midrange,",
+        glm::vec2(260, 240), ci::Color("white"), font);
+    ci::gl::drawStringCentered(
+        "T to take a three pointer, and H to take a Half Court shot.",
+        glm::vec2(280, 280), ci::Color("white"), font);
   }
 }
 
-void GameDisplay::CreatePowerMeter() {
+void GameLoop::CreatePowerMeter() {
   // Let power bar increase unless it reaches the top
   if (current_bar_height_ <= kEndingHeight || current_bar_height_
                                                   >= kStartingHeight) {
@@ -88,7 +95,6 @@ void GameDisplay::CreatePowerMeter() {
 
   // Print the outline and the moving power bar
   if (power_ == -1 && shot_ != Offense::Default) {
-    color(Color("white"));
 
     drawStrokedRect(Rectf(vec2(kStartingWidth, kEndingHeight),
                           vec2(kEndingWidth, kStartingHeight)));
@@ -97,24 +103,26 @@ void GameDisplay::CreatePowerMeter() {
 
     drawSolidRect(Rectf(vec2(kStartingWidth, current_bar_height_),
                         vec2(kEndingWidth, kStartingHeight)));
+
+    color(Color("white"));
   }
 }
-void GameDisplay::SetCurrentBarHeight(size_t currentBarHeight) {
+void GameLoop::SetCurrentBarHeight(size_t currentBarHeight) {
   current_bar_height_ = currentBarHeight;
 }
 
-size_t GameDisplay::CalculatePower() const {
+size_t GameLoop::CalculatePower() const {
   return kStartingHeight - current_bar_height_;
 }
 
-void GameDisplay::ConvertKeyToShot(Offense::ShotType shot_type) {
+void GameLoop::ChooseShotType(Offense::ShotType shot_type) {
   if (shot_ == Offense::Default) {
     shot_ = shot_type;
     offense_.SelectShot(shot_);
   }
 }
 
-void GameDisplay::CheckShotResult(){
+void GameLoop::CheckShotResult() {
   if (shot_ != Offense::Default && power_ == -1) {
     power_ = CalculatePower();
     offense_.CalculateShotPercentage(power_);
@@ -122,14 +130,20 @@ void GameDisplay::CheckShotResult(){
   }
 }
 
-void GameDisplay::SetNextPlayer(bool next) {
+void GameLoop::SetNextPlayer(bool next) {
   if (shot_ != Offense::Default && power_ != -1) {
     next_player = next;
   }
 }
 
-Offense::ShotType GameDisplay::GetShot() const { return shot_; }
+glm::vec2 GameLoop::ChangeBallPosition(glm::vec2 current_position,
+                                       bool shot_result) {
+  return glm::vec2();
+}
 
-size_t GameDisplay::GetPower() const { return power_; }
+Offense::ShotType GameLoop::GetShot() const { return shot_; }
+
+size_t GameLoop::GetPower() const { return power_; }
+
 
 } // namespace basketball

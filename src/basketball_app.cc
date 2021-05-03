@@ -11,22 +11,23 @@ void BasketballApp::draw() {
   // https://libcinder.org/docs/guides/opengl/part4.html
   background = ci::gl::Texture2d::create(loadImage(loadAsset("/court.jpeg")));
   ci::gl::draw(background, getWindowBounds());
+  //ci::gl::draw("basketball", get position from game_loop);
 
   game_.Draw();
 }
 void BasketballApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
   case ci::app::KeyEvent::KEY_l:
-    game_.ConvertKeyToShot(Offense::Layup);
+    game_.ChooseShotType(Offense::Layup);
     break;
   case ci::app::KeyEvent::KEY_m:
-    game_.ConvertKeyToShot(Offense::Midrange);
+    game_.ChooseShotType(Offense::Midrange);
     break;
   case ci::app::KeyEvent::KEY_t:
-    game_.ConvertKeyToShot(Offense::ThreePointer);
+    game_.ChooseShotType(Offense::ThreePointer);
     break;
   case ci::app::KeyEvent::KEY_h:
-    game_.ConvertKeyToShot(Offense::HalfCourt);
+    game_.ChooseShotType(Offense::HalfCourt);
     break;
   case ci::app::KeyEvent::KEY_RETURN:
     game_.SetNextPlayer(true);

@@ -5,19 +5,19 @@
 #include <string>
 namespace basketball {
 
-class GameDisplay {
+class GameLoop {
 public:
   /**
    * Creates new Game Display Object
    */
-  GameDisplay();
+  GameLoop();
 
   /**
    * Creates new Game Display Object that takes in players
    * @param player_one The first player that gets to take a shot
    * @param player_two The second player that gets to take a shot
    */
-  GameDisplay(Player &player_one, Player &player_two);
+  GameLoop(Player &player_one, Player &player_two);
 
   /**
    * Draws the text and power meter on the screen
@@ -52,7 +52,7 @@ public:
    * Determines the shot taken based on the key that is pushed
    * @param shot_type Type of shit taken by player
    */
-  void ConvertKeyToShot(Offense::ShotType shot_type);
+  void ChooseShotType(Offense::ShotType shot_type);
 
   /**
    * Chooses the power based on keys and finds the shot result
@@ -71,6 +71,8 @@ public:
  */
   void SetCurrentBarHeight(size_t currentBarHeight);
 
+  glm::vec2 ChangeBallPosition(glm::vec2 current_position, bool shot_result);
+
   Offense::ShotType GetShot() const;
 
   size_t GetPower() const;
@@ -88,6 +90,8 @@ private:
   int change_in_power_;
   bool result_;
   bool next_player;
+  glm::vec2 current_position_;
+  //add vec2 that determines position
 };
 
 } // namespace basketball

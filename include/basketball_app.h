@@ -2,7 +2,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
-#include "game_display.h"
+#include "game_loop.h"
 #include "offense.h"
 
 namespace basketball {
@@ -25,7 +25,7 @@ private:
   std::string kPlayerTwoName = "Player 2";
   Player player_one_ = Player(kPlayerOneName);
   Player player_two_ = Player(kPlayerTwoName);
-  GameDisplay game_;
+  GameLoop game_;
   const double kWindowSize = 600;
   ci::gl::Texture2dRef background;
 };
