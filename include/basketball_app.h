@@ -19,6 +19,7 @@ public:
 
   void draw() override;
   void keyDown(ci::app::KeyEvent event) override;
+  void mouseDown(ci::app::MouseEvent event) override;
 
 private:
   std::string kPlayerOneName = "Player 1";
@@ -28,6 +29,7 @@ private:
   GameLoop game_;
   const double kWindowSize = 600;
   ci::gl::Texture2dRef background;
+  ci::gl::Texture2dRef basketball;
 };
 
 } // namespace basketball

@@ -1,6 +1,8 @@
 #include "basketball_app.h"
 #include "cinder/ImageIo.h"
 #include "cinder/gl/Texture.h"
+using ci::Rectf;
+using glm::vec2;
 
 namespace basketball {
 
@@ -11,30 +13,37 @@ void BasketballApp::draw() {
   // https://libcinder.org/docs/guides/opengl/part4.html
   background = ci::gl::Texture2d::create(loadImage(loadAsset("/court.jpeg")));
   ci::gl::draw(background, getWindowBounds());
-  //ci::gl::draw("basketball", get position from game_loop);
-
+  basketball = ci::gl::Texture2d::create(loadImage(loadAsset("/basketball.jpeg")));
+  ci::gl::draw(basketball, Rectf(vec2(300, 500), vec2(375,575 )));
   game_.Draw();
 }
 void BasketballApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
-  case ci::app::KeyEvent::KEY_l:
-    game_.ChooseShotType(Offense::Layup);
-    break;
-  case ci::app::KeyEvent::KEY_m:
-    game_.ChooseShotType(Offense::Midrange);
-    break;
-  case ci::app::KeyEvent::KEY_t:
-    game_.ChooseShotType(Offense::ThreePointer);
-    break;
-  case ci::app::KeyEvent::KEY_h:
-    game_.ChooseShotType(Offense::HalfCourt);
-    break;
   case ci::app::KeyEvent::KEY_RETURN:
     game_.SetNextPlayer(true);
     break;
   case ci::app::KeyEvent::KEY_SPACE:
     game_.CheckShotResult();
     break;
+  }
+}
+
+void BasketballApp::mouseDown(ci::app::MouseEvent event) {
+  if (event.getPos().y >= 240 && event.getPos().y <= 280) {
+    if (event.getPos().x >= 80 && event.getPos().x <= 230) {
+      game_.ChooseShotType(Offense::Layup);
+    }
+    if (event.getPos().x >= 440 && event.getPos().x <= 550) {
+      game_.ChooseShotType(Offense::Midrange);
+    }
+  }
+  if (event.getPos().y >= 360 && event.getPos().y <= 400) {
+    if (event.getPos().x >= 80 && event.getPos().x <= 230) {
+      game_.ChooseShotType(Offense::ThreePointer);
+    }
+    if (event.getPos().x >= 440 && event.getPos().x <= 550) {
+      game_.ChooseShotType(Offense::HalfCourt);
+    }
   }
 }
 

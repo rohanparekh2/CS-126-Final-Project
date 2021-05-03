@@ -71,7 +71,7 @@ public:
  */
   void SetCurrentBarHeight(size_t currentBarHeight);
 
-  glm::vec2 ChangeBallPosition(glm::vec2 current_position, bool shot_result);
+  void ChangeBallPosition(ci::Rectf current_position, bool shot_result);
 
   Offense::ShotType GetShot() const;
 
@@ -89,9 +89,9 @@ private:
   size_t current_bar_height_;
   int change_in_power_;
   bool result_;
-  bool next_player;
-  glm::vec2 current_position_;
-  //add vec2 that determines position
+  bool next_player_;
+  ci::Rectf current_position_;
+  bool animation_finished_;
 };
 
 } // namespace basketball

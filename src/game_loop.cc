@@ -20,7 +20,8 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
   current_bar_height_ = kStartingHeight - 1;
   change_in_power_ = -5;
   result_ = false;
-  next_player = false;
+  next_player_ = false;
+  animation_finished_ = false;
 }
 
 void basketball::GameLoop::Draw() {
@@ -37,9 +38,9 @@ void basketball::GameLoop::Draw() {
   // Determine if player made shot by using variables determined by KeyDown
   CheckShotSelection();
   CreatePowerMeter();
-  current_position_ = ChangeBallPosition(current_position_, result_);
+  //ChangeBallPosition(current_position_, result_);
   //Change Ball position
-  if (shot_ != Offense::Default && power_ != -1) { // check if animation done
+  if (shot_ != Offense::Default && power_ != -1) { // && animation_finished_)
     // Display if the player made the shot or not
     if (result_) {
       ci::gl::drawStringCentered(player_two_.GetName() + " made the shot",
@@ -50,11 +51,11 @@ void basketball::GameLoop::Draw() {
                                  glm::vec2(200, 200),
                                  ci::Color("white"));
     }
-    if (next_player) {
+    if (next_player_) {
       // reset variables if it is the next player's turn and swap players
       shot_ = Offense::Default;
       power_ = -1;
-      next_player = false;
+      next_player_ = false;
       std::swap(player_one_, player_two_);
     }
   }
@@ -74,14 +75,26 @@ void GameLoop::CheckShotSelection() {
     cinder::Font font = cinder::Font("Arial", 20);
     ci::gl::drawStringCentered(
         player_two_.GetName() +
-            " pick which shot you want to take.",
-        glm::vec2(240, 200), ci::Color("white"), font);
+            ", pick which shot you want to take.",
+        glm::vec2(280, 180), ci::Color("white"), font);
+    color(Color("blue"));
+    drawSolidRect(Rectf(vec2(80,240), vec2(230,280)));
+    drawSolidRect(Rectf(vec2(400,240), vec2(550,280)));
+    drawSolidRect(Rectf(vec2(80,360), vec2(230,400)));
+    drawSolidRect(Rectf(vec2(400,360), vec2(550,400)));
+    color(Color("white"));
     ci::gl::drawStringCentered(
-        "Press L to take a layup, M to take a midrange,",
-        glm::vec2(260, 240), ci::Color("white"), font);
+        "Layup",
+        glm::vec2(155, 253), ci::Color("white"), font);
     ci::gl::drawStringCentered(
-        "T to take a three pointer, and H to take a Half Court shot.",
-        glm::vec2(280, 280), ci::Color("white"), font);
+        "Midrange",
+        glm::vec2(475, 253), ci::Color("white"), font);
+    ci::gl::drawStringCentered(
+        "Three-Pointer",
+        glm::vec2(155, 375), ci::Color("white"), font);
+    ci::gl::drawStringCentered(
+        "Half Court",
+        glm::vec2(475, 375), ci::Color("white"), font);
   }
 }
 
@@ -132,13 +145,12 @@ void GameLoop::CheckShotResult() {
 
 void GameLoop::SetNextPlayer(bool next) {
   if (shot_ != Offense::Default && power_ != -1) {
-    next_player = next;
+    next_player_ = next;
   }
 }
 
-glm::vec2 GameLoop::ChangeBallPosition(glm::vec2 current_position,
+void GameLoop::ChangeBallPosition(Rectf current_position,
                                        bool shot_result) {
-  return glm::vec2();
 }
 
 Offense::ShotType GameLoop::GetShot() const { return shot_; }
