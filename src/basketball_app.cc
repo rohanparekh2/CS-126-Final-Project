@@ -13,7 +13,7 @@ void BasketballApp::draw() {
   // https://libcinder.org/docs/guides/opengl/part4.html
   background = ci::gl::Texture2d::create(loadImage(loadAsset("/court.jpeg")));
   ci::gl::draw(background, getWindowBounds());
-  basketball = ci::gl::Texture2d::create(loadImage(loadAsset("/basketball.jpeg")));
+  basketball = ci::gl::Texture2d::create(loadImage(loadAsset("/basketball.png")));
   ci::gl::draw(basketball, Rectf(vec2(300, 500), vec2(375,575 )));
   game_.Draw();
 }

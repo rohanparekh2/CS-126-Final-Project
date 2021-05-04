@@ -18,7 +18,7 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
   shot_ = Offense::Default;
   power_ = -1;
   current_bar_height_ = kStartingHeight - 1;
-  change_in_power_ = -5;
+  change_in_power_ = -10;
   result_ = false;
   next_player_ = false;
   animation_finished_ = false;
@@ -76,25 +76,25 @@ void GameLoop::CheckShotSelection() {
     ci::gl::drawStringCentered(
         player_two_.GetName() +
             ", pick which shot you want to take.",
-        glm::vec2(280, 180), ci::Color("white"), font);
-    color(Color("blue"));
+        glm::vec2(290, 180), kTextColor, font);
+    color(kButtonColor);
     drawSolidRect(Rectf(vec2(80,240), vec2(230,280)));
     drawSolidRect(Rectf(vec2(400,240), vec2(550,280)));
     drawSolidRect(Rectf(vec2(80,360), vec2(230,400)));
     drawSolidRect(Rectf(vec2(400,360), vec2(550,400)));
-    color(Color("white"));
+    color(kTextColor);
     ci::gl::drawStringCentered(
         "Layup",
-        glm::vec2(155, 253), ci::Color("white"), font);
+        glm::vec2(155, 253), kTextColor, font);
     ci::gl::drawStringCentered(
         "Midrange",
-        glm::vec2(475, 253), ci::Color("white"), font);
+        glm::vec2(475, 253), kTextColor, font);
     ci::gl::drawStringCentered(
         "Three-Pointer",
-        glm::vec2(155, 375), ci::Color("white"), font);
+        glm::vec2(155, 375), kTextColor, font);
     ci::gl::drawStringCentered(
         "Half Court",
-        glm::vec2(475, 375), ci::Color("white"), font);
+        glm::vec2(475, 375), kTextColor, font);
   }
 }
 
@@ -112,12 +112,12 @@ void GameLoop::CreatePowerMeter() {
     drawStrokedRect(Rectf(vec2(kStartingWidth, kEndingHeight),
                           vec2(kEndingWidth, kStartingHeight)));
 
-    color(Color("blue"));
+    color(kButtonColor);
 
     drawSolidRect(Rectf(vec2(kStartingWidth, current_bar_height_),
                         vec2(kEndingWidth, kStartingHeight)));
 
-    color(Color("white"));
+    color(kTextColor);
   }
 }
 void GameLoop::SetCurrentBarHeight(size_t currentBarHeight) {
@@ -125,7 +125,7 @@ void GameLoop::SetCurrentBarHeight(size_t currentBarHeight) {
 }
 
 size_t GameLoop::CalculatePower() const {
-  return kStartingHeight - current_bar_height_;
+  return (kStartingHeight - current_bar_height_) / 2;
 }
 
 void GameLoop::ChooseShotType(Offense::ShotType shot_type) {

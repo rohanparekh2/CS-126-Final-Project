@@ -82,16 +82,18 @@ private:
   Offense::ShotType shot_;
   Offense offense_;
   size_t power_;
-  size_t kStartingWidth = 400;
-  size_t kEndingWidth = 425;
-  size_t kStartingHeight = 500;
-  size_t kEndingHeight = 400;
+  size_t kStartingWidth = 500;
+  size_t kEndingWidth = 550;
+  size_t kStartingHeight = 400;
+  size_t kEndingHeight = 200;
   size_t current_bar_height_;
   int change_in_power_;
   bool result_;
   bool next_player_;
   ci::Rectf current_position_;
   bool animation_finished_;
+  ci::Color kTextColor = "white";
+  ci::Color kButtonColor = "blue";
 };
 
 } // namespace basketball
