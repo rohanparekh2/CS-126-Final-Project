@@ -71,11 +71,16 @@ public:
  */
   void SetCurrentBarHeight(size_t currentBarHeight);
 
-  void ChangeBallPosition(ci::Rectf current_position, bool shot_result);
+  void ChangeBallPosition();
+
+  void clear();
 
   Offense::ShotType GetShot() const;
 
   size_t GetPower() const;
+  glm::vec2 GetCurrentLength() const;
+  glm::vec2 GetCurrentWidth() const;
+
 private:
   Player player_one_;
   Player player_two_;
@@ -84,16 +89,22 @@ private:
   size_t power_;
   size_t kStartingWidth = 500;
   size_t kEndingWidth = 550;
-  size_t kStartingHeight = 400;
-  size_t kEndingHeight = 200;
+  size_t kStartingHeight = 450;
+  size_t kEndingHeight = 250;
   size_t current_bar_height_;
   int change_in_power_;
   bool result_;
   bool next_player_;
-  ci::Rectf current_position_;
+  glm::vec2 top_left_;
+  glm::vec2 bottom_right_;
   bool animation_finished_;
   ci::Color kTextColor = "white";
   ci::Color kButtonColor = "blue";
+  size_t font_size_;
+  size_t change_in_pos_;
+  size_t kMaxYPos = 60;
+  size_t kEndYPosTop = 375;
+  bool part_one_;
 };
 
 } // namespace basketball

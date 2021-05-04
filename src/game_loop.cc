@@ -1,5 +1,5 @@
 #include "game_loop.h"
-#include<unistd.h>
+#include <unistd.h>
 using ci::Color;
 using ci::Rectf;
 using ci::gl::color;
@@ -22,6 +22,13 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
   result_ = false;
   next_player_ = false;
   animation_finished_ = false;
+  font_size_ = 0;
+  top_left_.x = 250;
+  top_left_.y = 450;
+  bottom_right_.x = 350;
+  bottom_right_.y = 550;
+  change_in_pos_ = 2;
+  part_one_ = false;
 }
 
 void basketball::GameLoop::Draw() {
@@ -31,38 +38,34 @@ void basketball::GameLoop::Draw() {
     // Check if a player has won the game and display winner if so
     Player winner = DetermineWinner(player_one_, player_two_);
     ci::gl::drawStringCentered(winner.GetName() + " has won the game",
-                               glm::vec2(200, 200),
-                               ci::Color("black"));
+                               glm::vec2(200, 200), ci::Color("black"));
     return;
   }
   // Determine if player made shot by using variables determined by KeyDown
   CheckShotSelection();
   CreatePowerMeter();
-  //ChangeBallPosition(current_position_, result_);
-  //Change Ball position
-  if (shot_ != Offense::Default && power_ != -1) { // && animation_finished_)
+  ChangeBallPosition();
+  // Change Ball position
+  if (shot_ != Offense::Default && power_ != -1 && animation_finished_) {
+    if (font_size_ < 30) {
+      font_size_ += 3;
+    }
+    cinder::Font font = cinder::Font("Arial", font_size_);
     // Display if the player made the shot or not
     if (result_) {
       ci::gl::drawStringCentered(player_two_.GetName() + " made the shot",
-                                 glm::vec2(200, 200),
-                                 ci::Color("white"));
+                                 glm::vec2(300, 250), ci::Color("white"), font);
     } else {
       ci::gl::drawStringCentered(player_two_.GetName() + " missed the shot",
-                                 glm::vec2(200, 200),
-                                 ci::Color("white"));
+                                 glm::vec2(300, 250), ci::Color("white"), font);
     }
     if (next_player_) {
-      // reset variables if it is the next player's turn and swap players
-      shot_ = Offense::Default;
-      power_ = -1;
-      next_player_ = false;
-      std::swap(player_one_, player_two_);
+      clear();
     }
   }
 }
 
-Player GameLoop::DetermineWinner(Player &player_one,
-                                    Player &player_two) const {
+Player GameLoop::DetermineWinner(Player &player_one, Player &player_two) const {
   if (player_one.GetScore() > player_two.GetScore()) {
     return player_one;
   }
@@ -73,41 +76,32 @@ void GameLoop::CheckShotSelection() {
   // While the KeyDown has not been executed, display this message
   if (shot_ == Offense::Default) {
     cinder::Font font = cinder::Font("Arial", 20);
-    ci::gl::drawStringCentered(
-        player_two_.GetName() +
-            ", pick which shot you want to take.",
-        glm::vec2(290, 180), kTextColor, font);
+    ci::gl::drawStringCentered(player_two_.GetName() +
+                                   ", pick which shot you want to take.",
+                               glm::vec2(290, 180), kTextColor, font);
     color(kButtonColor);
-    drawSolidRect(Rectf(vec2(80,240), vec2(230,280)));
-    drawSolidRect(Rectf(vec2(400,240), vec2(550,280)));
-    drawSolidRect(Rectf(vec2(80,360), vec2(230,400)));
-    drawSolidRect(Rectf(vec2(400,360), vec2(550,400)));
+    drawSolidRect(Rectf(vec2(80, 240), vec2(230, 280)));
+    drawSolidRect(Rectf(vec2(400, 240), vec2(550, 280)));
+    drawSolidRect(Rectf(vec2(80, 360), vec2(230, 400)));
+    drawSolidRect(Rectf(vec2(400, 360), vec2(550, 400)));
     color(kTextColor);
-    ci::gl::drawStringCentered(
-        "Layup",
-        glm::vec2(155, 253), kTextColor, font);
-    ci::gl::drawStringCentered(
-        "Midrange",
-        glm::vec2(475, 253), kTextColor, font);
-    ci::gl::drawStringCentered(
-        "Three-Pointer",
-        glm::vec2(155, 375), kTextColor, font);
-    ci::gl::drawStringCentered(
-        "Half Court",
-        glm::vec2(475, 375), kTextColor, font);
+    ci::gl::drawStringCentered("Layup", glm::vec2(155, 253), kTextColor, font);
+    ci::gl::drawStringCentered("Midrange", glm::vec2(475, 253), kTextColor,
+                               font);
+    ci::gl::drawStringCentered("Three-Pointer", glm::vec2(155, 375), kTextColor,
+                               font);
+    ci::gl::drawStringCentered("Half Court", glm::vec2(475, 375), kTextColor,
+                               font);
   }
 }
 
 void GameLoop::CreatePowerMeter() {
-  // Let power bar increase unless it reaches the top
-  if (current_bar_height_ <= kEndingHeight || current_bar_height_
-                                                  >= kStartingHeight) {
-    change_in_power_ *= -1;
-  }
-  current_bar_height_ += change_in_power_;
 
   // Print the outline and the moving power bar
   if (power_ == -1 && shot_ != Offense::Default) {
+    cinder::Font font = cinder::Font("Arial", 25);
+    ci::gl::drawStringCentered("Click the space bar to choose your shot power",
+                               glm::vec2(305, 175), kTextColor, font);
 
     drawStrokedRect(Rectf(vec2(kStartingWidth, kEndingHeight),
                           vec2(kEndingWidth, kStartingHeight)));
@@ -118,6 +112,14 @@ void GameLoop::CreatePowerMeter() {
                         vec2(kEndingWidth, kStartingHeight)));
 
     color(kTextColor);
+
+    current_bar_height_ += change_in_power_;
+
+    // Let power bar increase unless it reaches the top
+    if (current_bar_height_ <= kEndingHeight ||
+        current_bar_height_ >= kStartingHeight - 10) {
+      change_in_power_ *= -1;
+    }
   }
 }
 void GameLoop::SetCurrentBarHeight(size_t currentBarHeight) {
@@ -144,18 +146,52 @@ void GameLoop::CheckShotResult() {
 }
 
 void GameLoop::SetNextPlayer(bool next) {
-  if (shot_ != Offense::Default && power_ != -1) {
+  if (shot_ != Offense::Default && power_ != -1 && animation_finished_) {
     next_player_ = next;
   }
 }
 
-void GameLoop::ChangeBallPosition(Rectf current_position,
-                                       bool shot_result) {
+void GameLoop::ChangeBallPosition() {
+  if (shot_ != Offense::Default && power_ != -1 && !animation_finished_) {
+    if (top_left_.y > kMaxYPos && !part_one_) {
+      top_left_.y -= 22;
+      bottom_right_.y -= 26;
+      top_left_.x += change_in_pos_;
+      bottom_right_.x -= change_in_pos_;
+      if (!result_) {
+        top_left_.x -= 2 * change_in_pos_;
+        bottom_right_.x -= 2 * change_in_pos_;
+      }
+    } else if (top_left_.y < kEndYPosTop) {
+      part_one_ = true;
+      top_left_.y += 20;
+      bottom_right_.y += 20;
+    } else {
+      animation_finished_ = true;
+    }
+  }
+}
+
+void GameLoop::clear() {
+  // reset variables if it is the next player's turn and swap players
+  shot_ = Offense::Default;
+  next_player_ = false;
+  top_left_.x = 250;
+  top_left_.y = 450;
+  bottom_right_.x = 350;
+  bottom_right_.y = 550;
+  part_one_ = false;
+  power_ = -1;
+  animation_finished_ = false;
+  std::swap(player_one_, player_two_);
 }
 
 Offense::ShotType GameLoop::GetShot() const { return shot_; }
 
 size_t GameLoop::GetPower() const { return power_; }
 
+vec2 GameLoop::GetCurrentLength() const { return top_left_; }
+
+vec2 GameLoop::GetCurrentWidth() const { return bottom_right_; }
 
 } // namespace basketball

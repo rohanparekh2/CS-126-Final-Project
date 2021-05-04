@@ -44,7 +44,7 @@ public:
    * Adjusts the score of the player depending on the shot that is made
    * @param shot_type Type of shot taken
    */
-  void AdjustScore(Player &current_player, Offense::ShotType &shot) const;
+  void AdjustScore(Player &current_player, ShotType &shot) const;
 
   /**
    * Gets the percentage that a shot is made

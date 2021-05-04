@@ -43,7 +43,7 @@ bool Offense::DetermineShotResult(Player& current_player,
   }
 }
 
-void Offense::AdjustScore(Player& current_player, Offense::ShotType &shot) const {
+void Offense::AdjustScore(Player& current_player, ShotType &shot) const {
   if (shot == Offense::ShotType::Layup || shot == Offense::ShotType::Midrange) {
     current_player.TwoPointer();
   } else {

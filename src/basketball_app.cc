@@ -7,14 +7,18 @@ using glm::vec2;
 namespace basketball {
 
 BasketballApp::BasketballApp() : game_(player_two_, player_one_) {
-  ci::app::setWindowSize((int)kWindowSize, (int)kWindowSize);
+  ci::app::setWindowSize((int)kWindowSize,
+                         (int)kWindowSize);
 }
 void BasketballApp::draw() {
   // https://libcinder.org/docs/guides/opengl/part4.html
-  background = ci::gl::Texture2d::create(loadImage(loadAsset("/court.jpeg")));
+  background = ci::gl::Texture2d::create(loadImage(
+                loadAsset("/court.jpeg")));
   ci::gl::draw(background, getWindowBounds());
-  basketball = ci::gl::Texture2d::create(loadImage(loadAsset("/basketball.png")));
-  ci::gl::draw(basketball, Rectf(vec2(300, 500), vec2(375,575 )));
+  basketball =
+      ci::gl::Texture2d::create(loadImage(
+          loadAsset("/basketball.png")));
+  ci::gl::draw(basketball, Rectf(game_.GetCurrentLength(), game_.GetCurrentWidth()));
   game_.Draw();
 }
 void BasketballApp::keyDown(ci::app::KeyEvent event) {
