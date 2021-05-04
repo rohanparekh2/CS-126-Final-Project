@@ -29,10 +29,13 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
   bottom_right_.y = 550;
   change_in_pos_ = 2;
   part_one_ = false;
+  player_one_score_ = 0;
+  player_two_score_ = 0;
 }
 
 void basketball::GameLoop::Draw() {
-  // Let users choose names
+
+  DrawScoreboard();
 
   if (player_one_.GetScore() >= 10 || player_two_.GetScore() >= 10) {
     // Check if a player has won the game and display winner if so
@@ -60,7 +63,7 @@ void basketball::GameLoop::Draw() {
                                  glm::vec2(300, 250), ci::Color("white"), font);
     }
     if (next_player_) {
-      clear();
+      Clear();
     }
   }
 }
@@ -164,15 +167,45 @@ void GameLoop::ChangeBallPosition() {
       }
     } else if (top_left_.y < kEndYPosTop) {
       part_one_ = true;
-      top_left_.y += 20;
-      bottom_right_.y += 20;
+      top_left_.y += 40;
+      bottom_right_.y += 40;
     } else {
       animation_finished_ = true;
     }
   }
 }
 
-void GameLoop::clear() {
+void GameLoop::DrawScoreboard() {
+  cinder::Font title_font = cinder::Font("Arial", 25);
+  cinder::Font score_font = cinder::Font("Arial", 20);
+  drawStrokedRect(Rectf(vec2(400, 0), vec2(600, 150)));
+  ci::gl::drawStringCentered("Scores", glm::vec2(495, 25), kTextColor,
+                             title_font);
+  std::string name;
+  std::string name_two;
+  if (animation_finished_) {
+    if (player_two_.GetName() == "Player 1") {
+      player_two_score_ = player_one_.GetScore();
+      player_one_score_ = player_two_.GetScore();
+    } else {
+      player_one_score_ = player_one_.GetScore();
+      player_two_score_ = player_two_.GetScore();
+    }
+  }
+  if (player_two_.GetName() == "Player 1") {
+    name = player_two_.GetName();
+    name_two = player_one_.GetName();
+  } else {
+    name = player_one_.GetName();
+    name_two = player_two_.GetName();
+  }
+  ci::gl::drawStringCentered(name + "        " + std::to_string(player_one_score_),
+                             glm::vec2(475, 65), kTextColor, score_font);
+  ci::gl::drawStringCentered(name_two + "        " + std::to_string(player_two_score_),
+                             glm::vec2(475, 105), kTextColor, score_font);
+}
+
+void GameLoop::Clear() {
   // reset variables if it is the next player's turn and swap players
   shot_ = Offense::Default;
   next_player_ = false;

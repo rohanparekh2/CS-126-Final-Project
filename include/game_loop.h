@@ -73,7 +73,9 @@ public:
 
   void ChangeBallPosition();
 
-  void clear();
+  void Clear();
+
+  void DrawScoreboard();
 
   Offense::ShotType GetShot() const;
 
@@ -105,6 +107,9 @@ private:
   size_t kMaxYPos = 60;
   size_t kEndYPosTop = 375;
   bool part_one_;
+  size_t player_one_score_;
+  size_t player_two_score_;
+
 };
 
 } // namespace basketball
