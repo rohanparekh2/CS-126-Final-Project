@@ -77,6 +77,8 @@ public:
 
   void DrawScoreboard();
 
+  void QuitGame();
+
   Offense::ShotType GetShot() const;
 
   size_t GetPower() const;
@@ -103,6 +105,7 @@ private:
   ci::Color kTextColor = "white";
   ci::Color kButtonColor = "blue";
   size_t font_size_;
+  size_t end_font_size_;
   size_t change_in_pos_;
   size_t kMaxYPos = 60;
   size_t kEndYPosTop = 375;

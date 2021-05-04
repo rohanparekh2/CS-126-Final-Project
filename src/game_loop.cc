@@ -23,6 +23,7 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
   next_player_ = false;
   animation_finished_ = false;
   font_size_ = 0;
+  end_font_size_ = 0;
   top_left_.x = 250;
   top_left_.y = 450;
   bottom_right_.x = 350;
@@ -35,15 +36,20 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
 
 void basketball::GameLoop::Draw() {
 
-  DrawScoreboard();
+  QuitGame();
 
-  if (player_one_.GetScore() >= 10 || player_two_.GetScore() >= 10) {
+  if ((player_one_.GetScore() >= 2 || player_two_.GetScore() >= 2) && next_player_) {
+    if (end_font_size_ < 40) {
+      end_font_size_ += 3;
+    }
+    cinder::Font font = cinder::Font("Arial", end_font_size_);
     // Check if a player has won the game and display winner if so
     Player winner = DetermineWinner(player_one_, player_two_);
-    ci::gl::drawStringCentered(winner.GetName() + " has won the game",
-                               glm::vec2(200, 200), ci::Color("black"));
+    ci::gl::drawStringCentered(winner.GetName() + " has won the game!!!",
+                               glm::vec2(300, 250), ci::Color("white"), font);
     return;
   }
+  DrawScoreboard();
   // Determine if player made shot by using variables determined by KeyDown
   CheckShotSelection();
   CreatePowerMeter();
@@ -215,8 +221,24 @@ void GameLoop::Clear() {
   bottom_right_.y = 550;
   part_one_ = false;
   power_ = -1;
+  current_bar_height_ = kStartingHeight - 1;
   animation_finished_ = false;
+  font_size_ = 0;
   std::swap(player_one_, player_two_);
+}
+
+void GameLoop::QuitGame() {
+  color(Color("grey"));
+
+  drawSolidRect(Rectf(vec2(0, 0),
+                      vec2(100, 50)));
+
+  color(kTextColor);
+
+  cinder::Font font = cinder::Font("Arial", 25);
+
+  ci::gl::drawStringCentered("Quit",
+                             glm::vec2(47, 20), kTextColor, font);
 }
 
 Offense::ShotType GameLoop::GetShot() const { return shot_; }
@@ -226,5 +248,6 @@ size_t GameLoop::GetPower() const { return power_; }
 vec2 GameLoop::GetCurrentLength() const { return top_left_; }
 
 vec2 GameLoop::GetCurrentWidth() const { return bottom_right_; }
+
 
 } // namespace basketball
