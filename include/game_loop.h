@@ -125,6 +125,7 @@ public:
    */
   void SetQuit(bool quit);
 
+
 private:
   Player player_one_;
   Player player_two_;

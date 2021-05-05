@@ -317,6 +317,7 @@ Offense::ShotType GameLoop::GetShot() const { return shot_; }
 vec2 GameLoop::GetCurrentLength() const { return top_left_; }
 
 vec2 GameLoop::GetCurrentWidth() const { return bottom_right_; }
+
 void GameLoop::SetQuit(bool quit) { quit_ = quit; }
 
 } // namespace basketball

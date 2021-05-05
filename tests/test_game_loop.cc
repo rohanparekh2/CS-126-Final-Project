@@ -11,5 +11,23 @@ TEST_CASE("Test Determine Winner") {
 TEST_CASE("Test Calculate Power") {
   basketball::GameLoop g = basketball::GameLoop();
   g.SetCurrentBarHeight(430);
-  REQUIRE(g.CalculatePower() == 70);
+  REQUIRE(g.CalculatePower() == 10);
+}
+
+TEST_CASE("Test Choose Shot Type") {
+  basketball::Offense offense = basketball::Offense();
+  basketball::GameLoop g = basketball::GameLoop();
+  basketball::Offense::ShotType s = basketball::Offense::Layup;
+  g.ChooseShotType(s);
+  REQUIRE(offense.GetMakePercentage() == 85);
+}
+
+TEST_CASE("Test Choose Defense Type") {
+  basketball::Defense defense = basketball::Defense();
+  basketball::GameLoop g = basketball::GameLoop();
+  basketball::Defense::DefenseType d = basketball::Defense::Block;
+
+  g.ChooseDefenseType(d);
+  REQUIRE(defense.GetTurnoverPercentage() == 25);
+  REQUIRE(defense.GetAdjustedShotPercentage() == 5);
 }
