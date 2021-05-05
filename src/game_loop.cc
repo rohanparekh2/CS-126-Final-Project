@@ -244,7 +244,8 @@ void GameLoop::ChangeBallPosition() {
 void GameLoop::DrawScoreboard() {
   cinder::Font title_font = cinder::Font("Arial", 25);
   cinder::Font score_font = cinder::Font("Arial", 20);
-  drawStrokedRect(Rectf(vec2(400, 0), vec2(600, 150)));
+  drawStrokedRect(Rectf(vec2(400, 0),
+                        vec2(600, 150)));
   ci::gl::drawStringCentered("Scores", glm::vec2(495, 25),
                              kTextColor, title_font);
   std::string name;
