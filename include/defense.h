@@ -15,9 +15,9 @@ public:
 
   void SelectDefense(DefenseType &user_input);
 
-  size_t GetTurnoverPercentage() const;
-
   size_t GetAdjustedShotPercentage() const;
+
+  size_t GetTurnoverPercentage() const;
 
 private:
   size_t turnover_percentage_;

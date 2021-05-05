@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "defense.h"
 #include <player.h>
 #include <string>
 
@@ -31,14 +32,14 @@ public:
    * into account
    * @param power Power of the shot determined by the power meter
    */
-  void CalculateShotPercentage(size_t power);
+  void CalculateShotPercentage(size_t power, Defense& defense);
   /**
    * Uses randomization to check if the player made the shot or not
    * @param current_player The player taking the shot
    * @param user_input Type of shot being taken
    * @return bool that represents if the shot was made or not
    */
-  bool DetermineShotResult(Player &current_player, ShotType &user_input) const;
+  bool DetermineShotResult(Player &current_player, ShotType &user_input, Defense& defense) const;
 
   /**
    * Adjusts the score of the player depending on the shot that is made
