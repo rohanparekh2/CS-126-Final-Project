@@ -32,13 +32,17 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
   part_one_ = false;
   player_one_score_ = 0;
   player_two_score_ = 0;
+  quit_ = false;
 }
 
 void basketball::GameLoop::Draw() {
 
   QuitGame();
+  if (quit_) {
+    return;
+  }
 
-  if ((player_one_.GetScore() >= 2 || player_two_.GetScore() >= 2) && next_player_) {
+  if ((player_one_.GetScore() >= 10 || player_two_.GetScore() >= 10) && next_player_) {
     if (end_font_size_ < 40) {
       end_font_size_ += 3;
     }
@@ -239,6 +243,11 @@ void GameLoop::QuitGame() {
 
   ci::gl::drawStringCentered("Quit",
                              glm::vec2(47, 20), kTextColor, font);
+
+  if (quit_) {
+    ci::gl::drawStringCentered("Thanks for Playing",
+                               glm::vec2(300, 250), ci::Color("white"), font);
+  }
 }
 
 Offense::ShotType GameLoop::GetShot() const { return shot_; }
@@ -248,6 +257,6 @@ size_t GameLoop::GetPower() const { return power_; }
 vec2 GameLoop::GetCurrentLength() const { return top_left_; }
 
 vec2 GameLoop::GetCurrentWidth() const { return bottom_right_; }
-
+void GameLoop::SetQuit(bool quit) { quit_ = quit; }
 
 } // namespace basketball

@@ -49,6 +49,9 @@ void BasketballApp::mouseDown(ci::app::MouseEvent event) {
       game_.ChooseShotType(Offense::HalfCourt);
     }
   }
+  if (event.getPos().y <= 50 && event.getPos().x <= 100) {
+    game_.SetQuit(true);
+  }
 }
 
 } // namespace basketball

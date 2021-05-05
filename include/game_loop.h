@@ -85,6 +85,8 @@ public:
   glm::vec2 GetCurrentLength() const;
   glm::vec2 GetCurrentWidth() const;
 
+  void SetQuit(bool quit);
+
 private:
   Player player_one_;
   Player player_two_;
@@ -112,7 +114,7 @@ private:
   bool part_one_;
   size_t player_one_score_;
   size_t player_two_score_;
-
+  bool quit_;
 };
 
 } // namespace basketball
