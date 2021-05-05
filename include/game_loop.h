@@ -79,6 +79,10 @@ public:
 
   void QuitGame();
 
+  void ChooseDefenseType(Defense::DefenseType defense_type);
+
+  void CheckDefenseSelection();
+
   Offense::ShotType GetShot() const;
 
   size_t GetPower() const;
@@ -92,6 +96,8 @@ private:
   Player player_two_;
   Offense::ShotType shot_;
   Offense offense_;
+  Defense::DefenseType defense_type_;
+  Defense defense_;
   size_t power_;
   size_t kStartingWidth = 500;
   size_t kEndingWidth = 550;
@@ -115,6 +121,7 @@ private:
   size_t player_one_score_;
   size_t player_two_score_;
   bool quit_;
+
 };
 
 } // namespace basketball
