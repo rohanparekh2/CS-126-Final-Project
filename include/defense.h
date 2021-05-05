@@ -1,10 +1,27 @@
-//
-// Created by Rohan Parekh on 5/4/21.
-//
+#pragma once
 
-#ifndef FINAL_PROJECT_DEFENSE_H
-#define FINAL_PROJECT_DEFENSE_H
+#include <cstddef>
+namespace basketball {
+class Defense {
+public:
+  enum DefenseType {
+    Default,
+    Block,
+    Steal,
+    Contest,
+  };
 
-class defense {};
+  Defense();
 
-#endif // FINAL_PROJECT_DEFENSE_H
+  void SelectDefense(DefenseType &user_input);
+
+  size_t GetTurnoverPercentage() const;
+
+  size_t GetAdjustedShotPercentage() const;
+
+private:
+  size_t turnover_percentage_;
+  size_t adjusted_shot_percentage;
+
+};
+} // namespace basketball
