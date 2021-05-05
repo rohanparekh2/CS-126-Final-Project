@@ -35,7 +35,6 @@ GameLoop::GameLoop(Player &player_one, Player &player_two) {
   player_one_score_ = 0;
   player_two_score_ = 0;
   quit_ = false;
-
 }
 
 void basketball::GameLoop::Draw() {
@@ -45,7 +44,8 @@ void basketball::GameLoop::Draw() {
     return;
   }
 
-  if ((player_one_.GetScore() >= 10 || player_two_.GetScore() >= 10) && next_player_) {
+  if ((player_one_.GetScore() >= 10 || player_two_.GetScore() >= 10) &&
+      next_player_) {
     if (end_font_size_ < 40) {
       end_font_size_ += 3;
     }
@@ -63,7 +63,8 @@ void basketball::GameLoop::Draw() {
   CreatePowerMeter();
   ChangeBallPosition();
   // Change Ball position
-  if (shot_ != Offense::Default && defense_type_ != Defense::Default && power_ != -1 && animation_finished_) {
+  if (shot_ != Offense::Default && defense_type_ != Defense::Default &&
+      power_ != -1 && animation_finished_) {
     if (font_size_ < 30) {
       font_size_ += 3;
     }
@@ -117,17 +118,16 @@ void GameLoop::CheckDefenseSelection() {
   if (shot_ != Offense::Default && defense_type_ == Defense::Default) {
     cinder::Font font = cinder::Font("Arial", 20);
     ci::gl::drawStringCentered(player_one_.GetName() +
-                               ", pick a type of defense to play.",
+                                   ", pick a type of defense to play.",
                                glm::vec2(290, 180), kTextColor, font);
     color(kButtonColor);
     drawSolidRect(Rectf(vec2(80, 240), vec2(230, 280)));
     drawSolidRect(Rectf(vec2(400, 240), vec2(550, 280)));
-    drawSolidRect(Rectf(vec2(200, 360), vec2(350, 400)));
+    drawSolidRect(Rectf(vec2(250, 360), vec2(400, 400)));
     color(kTextColor);
     ci::gl::drawStringCentered("Block", glm::vec2(155, 253), kTextColor, font);
-    ci::gl::drawStringCentered("Steal", glm::vec2(475, 253), kTextColor,
-                               font);
-    ci::gl::drawStringCentered("Contest", glm::vec2(275, 373), kTextColor,
+    ci::gl::drawStringCentered("Steal", glm::vec2(475, 253), kTextColor, font);
+    ci::gl::drawStringCentered("Contest", glm::vec2(325, 373), kTextColor,
                                font);
   }
 }
@@ -135,7 +135,8 @@ void GameLoop::CheckDefenseSelection() {
 void GameLoop::CreatePowerMeter() {
 
   // Print the outline and the moving power bar
-  if (power_ == -1 && shot_ != Offense::Default && defense_type_ != Defense::Default) {
+  if (power_ == -1 && shot_ != Offense::Default &&
+      defense_type_ != Defense::Default) {
     cinder::Font font = cinder::Font("Arial", 25);
     ci::gl::drawStringCentered("Click the space bar to choose your shot power",
                                glm::vec2(305, 175), kTextColor, font);
@@ -182,7 +183,8 @@ void GameLoop::ChooseDefenseType(Defense::DefenseType defense_type) {
 }
 
 void GameLoop::CheckShotResult() {
-  if (shot_ != Offense::Default && defense_type_ != Defense::Default && power_ == -1) {
+  if (shot_ != Offense::Default && defense_type_ != Defense::Default &&
+      power_ == -1) {
     power_ = CalculatePower();
     offense_.CalculateShotPercentage(power_, defense_);
     result_ = offense_.DetermineShotResult(player_two_, shot_, defense_);
@@ -190,13 +192,15 @@ void GameLoop::CheckShotResult() {
 }
 
 void GameLoop::SetNextPlayer(bool next) {
-  if (shot_ != Offense::Default && defense_type_ != Defense::Default && power_ != -1 && animation_finished_) {
+  if (shot_ != Offense::Default && defense_type_ != Defense::Default &&
+      power_ != -1 && animation_finished_) {
     next_player_ = next;
   }
 }
 
 void GameLoop::ChangeBallPosition() {
-  if (shot_ != Offense::Default &&  defense_type_ != Defense::Default && power_ != -1 && !animation_finished_) {
+  if (shot_ != Offense::Default && defense_type_ != Defense::Default &&
+      power_ != -1 && !animation_finished_) {
     if (top_left_.y > kMaxYPos && !part_one_) {
       top_left_.y -= 22;
       bottom_right_.y -= 26;
@@ -240,15 +244,20 @@ void GameLoop::DrawScoreboard() {
     name = player_one_.GetName();
     name_two = player_two_.GetName();
   }
-  ci::gl::drawStringCentered(name + "        " + std::to_string(player_one_score_),
-                             glm::vec2(475, 65), kTextColor, score_font);
-  ci::gl::drawStringCentered(name_two + "        " + std::to_string(player_two_score_),
-                             glm::vec2(475, 105), kTextColor, score_font);
+  ci::gl::drawStringCentered(name + "        " +
+                                 std::to_string(player_one_score_),
+                             glm::vec2(475, 65),
+                             kTextColor, score_font);
+  ci::gl::drawStringCentered(name_two + "        " +
+                                 std::to_string(player_two_score_),
+                             glm::vec2(475, 105),
+                             kTextColor, score_font);
 }
 
 void GameLoop::Clear() {
   // reset variables if it is the next player's turn and swap players
   shot_ = Offense::Default;
+  defense_type_ = Defense::Default;
   next_player_ = false;
   top_left_.x = 250;
   top_left_.y = 450;
@@ -265,25 +274,23 @@ void GameLoop::Clear() {
 void GameLoop::QuitGame() {
   color(Color("grey"));
 
-  drawSolidRect(Rectf(vec2(0, 0),
-                      vec2(100, 50)));
+  drawSolidRect(Rectf(vec2(0, 0), vec2(100, 50)));
 
   color(kTextColor);
 
   cinder::Font font = cinder::Font("Arial", 25);
 
-  ci::gl::drawStringCentered("Quit",
-                             glm::vec2(47, 20), kTextColor, font);
+  ci::gl::drawStringCentered("Quit", glm::vec2(47, 20),
+                                                kTextColor, font);
 
   if (quit_) {
     ci::gl::drawStringCentered("Thanks for Playing",
-                               glm::vec2(300, 250), ci::Color("white"), font);
+                               glm::vec2(300, 250),
+                               ci::Color("white"), font);
   }
 }
 
 Offense::ShotType GameLoop::GetShot() const { return shot_; }
-
-size_t GameLoop::GetPower() const { return power_; }
 
 vec2 GameLoop::GetCurrentLength() const { return top_left_; }
 

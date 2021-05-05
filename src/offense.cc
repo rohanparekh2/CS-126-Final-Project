@@ -6,7 +6,7 @@ namespace basketball {
 
 Offense::Offense() { make_percentage_ = 0; }
 
-void Offense::SelectShot(ShotType& user_input){
+void Offense::SelectShot(ShotType &user_input) {
   if (user_input == ShotType::Layup) {
     make_percentage_ = 85;
   } else if (user_input == ShotType::Midrange) {
@@ -18,14 +18,17 @@ void Offense::SelectShot(ShotType& user_input){
   }
 }
 
-void Offense::CalculateShotPercentage(size_t power, Defense& defense){
+void Offense::CalculateShotPercentage(size_t power, Defense &defense) {
   double new_percentage;
+  // If the power is too high or low, the shot cannot be made
   if (power < kMinPower || power > kMaxPower) {
     make_percentage_ = 0;
   } else {
-    new_percentage = power + make_percentage_ + defense.GetAdjustedShotPercentage();
+    new_percentage =
+        power + make_percentage_ + defense.GetAdjustedShotPercentage();
     if (new_percentage > kOptimalPercentage) {
-      new_percentage = kOptimalPercentage - (new_percentage - kOptimalPercentage);
+      new_percentage =
+          kOptimalPercentage - (new_percentage - kOptimalPercentage);
     }
     make_percentage_ =
         (make_percentage_ * (new_percentage / kOptimalPercentage)) +
@@ -33,10 +36,12 @@ void Offense::CalculateShotPercentage(size_t power, Defense& defense){
   }
 }
 
-bool Offense::DetermineShotResult(Player& current_player,
-                                  ShotType &user_input, Defense& defense) const{
-  float random_percentage = ci::randFloat(kMinimumPercentage, kOptimalPercentage);
-  if (random_percentage > make_percentage_ || random_percentage <= defense.GetTurnoverPercentage()) {
+bool Offense::DetermineShotResult(Player &current_player, ShotType &user_input,
+                                  Defense &defense) const {
+  float random_percentage =
+      ci::randFloat(kMinimumPercentage, kOptimalPercentage);
+  if (random_percentage > make_percentage_ ||
+      random_percentage <= defense.GetTurnoverPercentage()) {
     return false;
   } else {
     AdjustScore(current_player, user_input);
@@ -44,7 +49,7 @@ bool Offense::DetermineShotResult(Player& current_player,
   }
 }
 
-void Offense::AdjustScore(Player& current_player, ShotType &shot) const {
+void Offense::AdjustScore(Player &current_player, ShotType &shot) const {
   if (shot == Offense::ShotType::Layup || shot == Offense::ShotType::Midrange) {
     current_player.TwoPointer();
   } else {

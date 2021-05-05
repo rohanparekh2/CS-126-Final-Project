@@ -7,6 +7,8 @@ Defense::Defense() {
   adjusted_shot_percentage = 0;
 }
 void Defense::SelectDefense(Defense::DefenseType &user_input) {
+  // Changes turnover an adjusted shot percentage depending on
+  // the type of defense
   if (user_input == DefenseType::Block) {
     turnover_percentage_ = 25;
     adjusted_shot_percentage = 5;
@@ -17,8 +19,9 @@ void Defense::SelectDefense(Defense::DefenseType &user_input) {
     adjusted_shot_percentage = -8;
   }
 }
-size_t Defense::GetAdjustedShotPercentage() const {
+int Defense::GetAdjustedShotPercentage() const {
   return adjusted_shot_percentage;
 }
 size_t Defense::GetTurnoverPercentage() const { return turnover_percentage_; }
+
 }// namespace basketball

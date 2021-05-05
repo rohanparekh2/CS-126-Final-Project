@@ -4,24 +4,40 @@
 namespace basketball {
 class Defense {
 public:
+  /**
+   * Enum values represent all the defene options the player could take
+   */
   enum DefenseType {
     Default,
     Block,
     Steal,
     Contest,
   };
-
+  /**
+   * Creates Defense Object
+   */
   Defense();
 
+  /**
+   * Selects defense and calculates turnover percentage and adjusted percentage
+   * @param user_input Type of defense chosen
+   */
   void SelectDefense(DefenseType &user_input);
 
-  size_t GetAdjustedShotPercentage() const;
+  /**
+   * Getter for adjusted shot_percentage used in offense class
+   * @return int that represents adjusted shot percentage
+   */
+  int GetAdjustedShotPercentage() const;
 
+  /**
+   * Getter for adjusted turnover_percentage used in offense class
+   * @return int that represents turnover percentage
+   */
   size_t GetTurnoverPercentage() const;
 
 private:
   size_t turnover_percentage_;
-  size_t adjusted_shot_percentage;
-
+  int adjusted_shot_percentage;
 };
 } // namespace basketball

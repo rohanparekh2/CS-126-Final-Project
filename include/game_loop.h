@@ -49,8 +49,8 @@ public:
   size_t CalculatePower() const;
 
   /**
-   * Determines the shot taken based on the key that is pushed
-   * @param shot_type Type of shit taken by player
+   * Determines the shot taken based on the button that is pushed
+   * @param shot_type Type of shot taken by player
    */
   void ChooseShotType(Offense::ShotType shot_type);
 
@@ -66,29 +66,63 @@ public:
   void SetNextPlayer(bool next);
 
   /**
- * Changes bar height of the power b ar
- * @param currentBarHeight height of the power bar
- */
+   * Changes bar height of the power bar
+   * @param currentBarHeight height of the power bar
+   */
   void SetCurrentBarHeight(size_t currentBarHeight);
 
+  /**
+   * Changes position of ball animation
+   */
   void ChangeBallPosition();
 
+  /**
+   * Resets variables for the next turn
+   */
   void Clear();
 
+  /**
+   * Draws Scoreboard on Screen
+   */
   void DrawScoreboard();
 
+  /**
+   * Quits Game if button is pressed
+   */
   void QuitGame();
 
+  /**
+   * Determines the defense type taken based on the button that is pushed
+   * @param shot_type Type of defense chosen by player
+   */
   void ChooseDefenseType(Defense::DefenseType defense_type);
 
+  /**
+   * Checks to see if the player has chosen their defense type
+   */
   void CheckDefenseSelection();
 
+  /**
+   * Gets the type of shot that the player chose
+   * @return Shot Type
+   */
   Offense::ShotType GetShot() const;
 
-  size_t GetPower() const;
+  /**
+   * Gets the current length coordinates of the basketball image
+   * @return Vec2 of length
+   */
   glm::vec2 GetCurrentLength() const;
-  glm::vec2 GetCurrentWidth() const;
 
+  /**
+   *  Gets the current width coordinates of the basketball image
+   * @return Vec2 of width
+   */
+  glm::vec2 GetCurrentWidth() const;
+  /**
+   *  Chnages the value of the quit variable
+   * @param vairable that represents if the player quit the game or not
+   */
   void SetQuit(bool quit);
 
 private:
@@ -121,7 +155,6 @@ private:
   size_t player_one_score_;
   size_t player_two_score_;
   bool quit_;
-
 };
 
 } // namespace basketball

@@ -9,6 +9,9 @@ namespace basketball {
 
 class Offense {
 public:
+  /**
+   * Enum values represent all the shot options the player could take
+   */
   enum ShotType {
     Default,
     Layup,
@@ -31,18 +34,22 @@ public:
    * Calculates Probability of a Certain Shot Being Made when power is taken
    * into account
    * @param power Power of the shot determined by the power meter
+   * @param defense Defense object that contains defense type
    */
-  void CalculateShotPercentage(size_t power, Defense& defense);
+  void CalculateShotPercentage(size_t power, Defense &defense);
   /**
    * Uses randomization to check if the player made the shot or not
    * @param current_player The player taking the shot
    * @param user_input Type of shot being taken
+   * @param defense Defense object that contains defense type
    * @return bool that represents if the shot was made or not
    */
-  bool DetermineShotResult(Player &current_player, ShotType &user_input, Defense& defense) const;
+  bool DetermineShotResult(Player &current_player, ShotType &user_input,
+                           Defense &defense) const;
 
   /**
    * Adjusts the score of the player depending on the shot that is made
+   * @param current_player Current player
    * @param shot_type Type of shot taken
    */
   void AdjustScore(Player &current_player, ShotType &shot) const;
