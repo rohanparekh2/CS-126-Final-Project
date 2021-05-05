@@ -19,6 +19,12 @@ public:
   Defense();
 
   /**
+   * Creates Defense Object
+   * @param d Type of defense
+   */
+  Defense(DefenseType d);
+
+  /**
    * Selects defense and calculates turnover percentage and adjusted percentage
    * @param user_input Type of defense chosen
    */

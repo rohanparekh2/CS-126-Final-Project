@@ -33,56 +33,68 @@ TEST_CASE("Test Select Shot") {
 
 TEST_CASE("Test Calculate Shot Result") {
   SECTION("Layup") {
+    basketball::Defense defense =
+        basketball::Defense(basketball::Defense::Steal);
     basketball::Offense offense = basketball::Offense();
     basketball::Offense::ShotType input = basketball::Offense::Layup;
     offense.SelectShot(input);
     double power = 10;
-    offense.CalculateShotPercentage(power);
-    REQUIRE(offense.GetMakePercentage() == 90.75);
+    offense.CalculateShotPercentage(power, defense);
+    REQUIRE(offense.GetMakePercentage() == 94.15);
   }
 
   SECTION("Midrange") {
+    basketball::Defense defense =
+        basketball::Defense(basketball::Defense::Contest);
     basketball::Offense offense = basketball::Offense();
     basketball::Offense::ShotType input = basketball::Offense::Midrange;
     offense.SelectShot(input);
     double power = 60;
-    offense.CalculateShotPercentage(power);
-    REQUIRE(offense.GetMakePercentage() == 56.75);
+    offense.CalculateShotPercentage(power, defense);
+    REQUIRE(offense.GetMakePercentage() == Approx(61.15));
   }
 
   SECTION("Three pointer") {
+    basketball::Defense defense =
+        basketball::Defense(basketball::Defense::Contest);
     basketball::Offense offense = basketball::Offense();
     basketball::Offense::ShotType input = basketball::Offense::ThreePointer;
     offense.SelectShot(input);
     double power = 70;
-    offense.CalculateShotPercentage(power);
-    REQUIRE(offense.GetMakePercentage() == 43.25);
+    offense.CalculateShotPercentage(power, defense);
+    REQUIRE(offense.GetMakePercentage() == Approx(43.95));
   }
 
   SECTION("Half Court") {
+    basketball::Defense defense =
+        basketball::Defense(basketball::Defense::Steal);
     basketball::Offense offense = basketball::Offense();
     basketball::Offense::ShotType input = basketball::Offense::HalfCourt;
     offense.SelectShot(input);
     double power = 90;
-    offense.CalculateShotPercentage(power);
-    REQUIRE(offense.GetMakePercentage() == 20);
+    offense.CalculateShotPercentage(power, defense);
+    REQUIRE(offense.GetMakePercentage() == 19.6);
   }
 
   SECTION("Power Too Low") {
+    basketball::Defense defense =
+        basketball::Defense(basketball::Defense::Block);
     basketball::Offense offense = basketball::Offense();
     basketball::Offense::ShotType input = basketball::Offense::HalfCourt;
     offense.SelectShot(input);
     double power = 0;
-    offense.CalculateShotPercentage(power);
+    offense.CalculateShotPercentage(power, defense);
     REQUIRE(offense.GetMakePercentage() == 0);
   }
 
   SECTION("Power Too High") {
+    basketball::Defense defense =
+        basketball::Defense(basketball::Defense::Block);
     basketball::Offense offense = basketball::Offense();
     basketball::Offense::ShotType input = basketball::Offense::HalfCourt;
     offense.SelectShot(input);
     double power = 100;
-    offense.CalculateShotPercentage(power);
+    offense.CalculateShotPercentage(power, defense);
     REQUIRE(offense.GetMakePercentage() == 0);
   }
 }
@@ -124,4 +136,3 @@ TEST_CASE("Test Adjust Score") {
     REQUIRE(p1.GetScore() == 6);
   }
 }
-

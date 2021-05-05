@@ -64,7 +64,8 @@ ci_make_app(
 )
 
 list(APPEND TEST_FILES tests/test_offense.cc
-                  tests/test_game_display.cc)
+                       tests/test_game_loop.cc
+                       tests/test_defense.cc)
 
 ci_make_app(
         APP_NAME        basketball-test

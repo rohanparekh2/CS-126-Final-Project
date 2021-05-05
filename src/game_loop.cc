@@ -53,11 +53,12 @@ void basketball::GameLoop::Draw() {
     // Check if a player has won the game and display winner if so
     Player winner = DetermineWinner(player_one_, player_two_);
     ci::gl::drawStringCentered(winner.GetName() + " has won the game!!!",
-                               glm::vec2(300, 250), ci::Color("white"), font);
+                               glm::vec2(300, 250),
+                               ci::Color("white"), font);
     return;
   }
   DrawScoreboard();
-  // Determine if player made shot by using variables determined by KeyDown
+  // Determine if player made shot by using variables determined by MouseDown
   CheckShotSelection();
   CheckDefenseSelection();
   CreatePowerMeter();
@@ -72,11 +73,14 @@ void basketball::GameLoop::Draw() {
     // Display if the player made the shot or not
     if (result_) {
       ci::gl::drawStringCentered(player_two_.GetName() + " made the shot",
-                                 glm::vec2(300, 250), ci::Color("white"), font);
+                                 glm::vec2(300, 250),
+                                 ci::Color("white"), font);
     } else {
       ci::gl::drawStringCentered(player_two_.GetName() + " missed the shot",
-                                 glm::vec2(300, 250), ci::Color("white"), font);
+                                 glm::vec2(300, 250),
+                                 ci::Color("white"), font);
     }
+    // Checks if it is the next player's turn
     if (next_player_) {
       Clear();
     }
@@ -91,44 +95,58 @@ Player GameLoop::DetermineWinner(Player &player_one, Player &player_two) const {
 }
 
 void GameLoop::CheckShotSelection() {
-  // While the KeyDown has not been executed, display this message
+  // While the MouseDown has not been executed, display this message
   if (shot_ == Offense::Default) {
     cinder::Font font = cinder::Font("Arial", 20);
     ci::gl::drawStringCentered(player_two_.GetName() +
                                    ", pick which shot you want to take.",
-                               glm::vec2(290, 180), kTextColor, font);
+                               glm::vec2(290, 180),
+                               kTextColor, font);
     color(kButtonColor);
-    drawSolidRect(Rectf(vec2(80, 240), vec2(230, 280)));
-    drawSolidRect(Rectf(vec2(400, 240), vec2(550, 280)));
-    drawSolidRect(Rectf(vec2(80, 360), vec2(230, 400)));
-    drawSolidRect(Rectf(vec2(400, 360), vec2(550, 400)));
+    drawSolidRect(Rectf(vec2(80, 240),
+                        vec2(230, 280)));
+    drawSolidRect(Rectf(vec2(400, 240),
+                        vec2(550, 280)));
+    drawSolidRect(Rectf(vec2(80, 360),
+                        vec2(230, 400)));
+    drawSolidRect(Rectf(vec2(400, 360),
+                        vec2(550, 400)));
     color(kTextColor);
-    ci::gl::drawStringCentered("Layup", glm::vec2(155, 253), kTextColor, font);
-    ci::gl::drawStringCentered("Midrange", glm::vec2(475, 253), kTextColor,
-                               font);
-    ci::gl::drawStringCentered("Three-Pointer", glm::vec2(155, 375), kTextColor,
-                               font);
-    ci::gl::drawStringCentered("Half Court", glm::vec2(475, 375), kTextColor,
-                               font);
+    ci::gl::drawStringCentered("Layup", glm::vec2(155, 253),
+                               kTextColor, font);
+    ci::gl::drawStringCentered("Midrange", glm::vec2(475, 253),
+                               kTextColor, font);
+    ci::gl::drawStringCentered("Three-Pointer",
+                               glm::vec2(155, 375),
+                               kTextColor, font);
+    ci::gl::drawStringCentered("Half Court",
+                               glm::vec2(475, 375),
+                               kTextColor, font);
   }
 }
 
 void GameLoop::CheckDefenseSelection() {
-  // While the KeyDown has not been executed, display this message
+  // While the MouseDown has not been executed, display this message
   if (shot_ != Offense::Default && defense_type_ == Defense::Default) {
     cinder::Font font = cinder::Font("Arial", 20);
     ci::gl::drawStringCentered(player_one_.GetName() +
                                    ", pick a type of defense to play.",
-                               glm::vec2(290, 180), kTextColor, font);
+                               glm::vec2(290, 180),
+                               kTextColor, font);
     color(kButtonColor);
-    drawSolidRect(Rectf(vec2(80, 240), vec2(230, 280)));
-    drawSolidRect(Rectf(vec2(400, 240), vec2(550, 280)));
-    drawSolidRect(Rectf(vec2(250, 360), vec2(400, 400)));
+    drawSolidRect(Rectf(vec2(80, 240),
+                        vec2(230, 280)));
+    drawSolidRect(Rectf(vec2(400, 240),
+                        vec2(550, 280)));
+    drawSolidRect(Rectf(vec2(250, 360),
+                        vec2(400, 400)));
     color(kTextColor);
-    ci::gl::drawStringCentered("Block", glm::vec2(155, 253), kTextColor, font);
-    ci::gl::drawStringCentered("Steal", glm::vec2(475, 253), kTextColor, font);
-    ci::gl::drawStringCentered("Contest", glm::vec2(325, 373), kTextColor,
-                               font);
+    ci::gl::drawStringCentered("Block", glm::vec2(155, 253),
+                               kTextColor, font);
+    ci::gl::drawStringCentered("Steal", glm::vec2(475, 253),
+                               kTextColor, font);
+    ci::gl::drawStringCentered("Contest", glm::vec2(325, 373),
+                               kTextColor, font);
   }
 }
 
@@ -138,8 +156,9 @@ void GameLoop::CreatePowerMeter() {
   if (power_ == -1 && shot_ != Offense::Default &&
       defense_type_ != Defense::Default) {
     cinder::Font font = cinder::Font("Arial", 25);
-    ci::gl::drawStringCentered("Click the space bar to choose your shot power",
-                               glm::vec2(305, 175), kTextColor, font);
+    ci::gl::drawStringCentered("Click the space bar to choose shot power",
+                               glm::vec2(305, 175),
+                               kTextColor, font);
 
     drawStrokedRect(Rectf(vec2(kStartingWidth, kEndingHeight),
                           vec2(kEndingWidth, kStartingHeight)));
@@ -187,7 +206,8 @@ void GameLoop::CheckShotResult() {
       power_ == -1) {
     power_ = CalculatePower();
     offense_.CalculateShotPercentage(power_, defense_);
-    result_ = offense_.DetermineShotResult(player_two_, shot_, defense_);
+    result_ = offense_.DetermineShotResult(player_two_, shot_,
+                                           defense_);
   }
 }
 
@@ -199,6 +219,7 @@ void GameLoop::SetNextPlayer(bool next) {
 }
 
 void GameLoop::ChangeBallPosition() {
+  //Changes position of ball depending on if shot was made or not
   if (shot_ != Offense::Default && defense_type_ != Defense::Default &&
       power_ != -1 && !animation_finished_) {
     if (top_left_.y > kMaxYPos && !part_one_) {
@@ -224,8 +245,8 @@ void GameLoop::DrawScoreboard() {
   cinder::Font title_font = cinder::Font("Arial", 25);
   cinder::Font score_font = cinder::Font("Arial", 20);
   drawStrokedRect(Rectf(vec2(400, 0), vec2(600, 150)));
-  ci::gl::drawStringCentered("Scores", glm::vec2(495, 25), kTextColor,
-                             title_font);
+  ci::gl::drawStringCentered("Scores", glm::vec2(495, 25),
+                             kTextColor, title_font);
   std::string name;
   std::string name_two;
   if (animation_finished_) {
@@ -272,6 +293,7 @@ void GameLoop::Clear() {
 }
 
 void GameLoop::QuitGame() {
+  //Creates quit button and displays message if it is pressed
   color(Color("grey"));
 
   drawSolidRect(Rectf(vec2(0, 0), vec2(100, 50)));
@@ -281,7 +303,7 @@ void GameLoop::QuitGame() {
   cinder::Font font = cinder::Font("Arial", 25);
 
   ci::gl::drawStringCentered("Quit", glm::vec2(47, 20),
-                                                kTextColor, font);
+                             kTextColor, font);
 
   if (quit_) {
     ci::gl::drawStringCentered("Thanks for Playing",

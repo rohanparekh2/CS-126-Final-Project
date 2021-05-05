@@ -24,6 +24,8 @@ void Offense::CalculateShotPercentage(size_t power, Defense &defense) {
   if (power < kMinPower || power > kMaxPower) {
     make_percentage_ = 0;
   } else {
+
+    // equation that takes power into account
     new_percentage =
         power + make_percentage_ + defense.GetAdjustedShotPercentage();
     if (new_percentage > kOptimalPercentage) {
@@ -38,6 +40,7 @@ void Offense::CalculateShotPercentage(size_t power, Defense &defense) {
 
 bool Offense::DetermineShotResult(Player &current_player, ShotType &user_input,
                                   Defense &defense) const {
+  // randomizes shot to see if it is made
   float random_percentage =
       ci::randFloat(kMinimumPercentage, kOptimalPercentage);
   if (random_percentage > make_percentage_ ||
