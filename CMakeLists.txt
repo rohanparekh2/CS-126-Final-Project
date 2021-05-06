@@ -51,10 +51,10 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND SOURCE_FILES src/offense.cc
                          src/player.cc
-                         src/basketball_app.cc)
+                         src/basketball_app.cc
+                         src/game_loop.cc
+                         src/defense.cc)
 
-add_executable(main apps/main.cc ${SOURCE_FILES})
-target_include_directories(main PRIVATE include)
 
 ci_make_app(
         APP_NAME        basketball-game
@@ -62,3 +62,19 @@ ci_make_app(
         SOURCES         apps/main.cc ${SOURCE_FILES}
         INCLUDES        include
 )
+
+list(APPEND TEST_FILES tests/test_offense.cc
+                       tests/test_game_loop.cc
+                       tests/test_defense.cc)
+
+ci_make_app(
+        APP_NAME        basketball-test
+        CINDER_PATH     ${CINDER_PATH}
+        SOURCES         tests/test_main.cc ${SOURCE_FILES} ${TEST_FILES}
+        INCLUDES        include
+        LIBRARIES       catch2
+)
+
+if(MSVC)
+    set_property(TARGET basketball-test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
+endif()
